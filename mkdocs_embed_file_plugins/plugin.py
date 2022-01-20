@@ -20,7 +20,7 @@ def search_in_file(citation_part: str, contents: str):
     Returns: the part found
     """
     data = contents.split("\n")
-    if not "#":
+    if not "#" in citation_part:
         # All text citation
         return contents
     elif "#" in citation_part and not "^" in citation_part:
@@ -51,6 +51,16 @@ def search_in_file(citation_part: str, contents: str):
 
 
 def cite(md_link_path, link, soup, citation_part, config):
+    """
+    Append the content of the founded file to the original file.
+    Args:
+        md_link_path: File found
+        link: Line with the citation
+        soup: HTML of the original files
+        citation_part: Part to find
+        config: the config file
+    Returns: updated HTML
+    """
     docs = config["docs_dir"]
     url = config["site_url"]
     new_uri = str(md_link_path).replace(str(docs), str(url))
@@ -84,7 +94,14 @@ def cite(md_link_path, link, soup, citation_part, config):
 
 
 def search_doc(md_link_path, all_docs):
+    """
+    Search a file in the docs
+    Args:
+        md_link_path: Path to check
+        all_docs: a list containing all path to the file
+    Returns: Path to link found or 0 otherwise
 
+    """
     if os.path.basename(md_link_path) == ".md":
         md_link_path = str(md_link_path).replace(f"{os.sep}.md", f"{os.sep}index.md")
     else:
@@ -120,6 +137,7 @@ class EmbedFile(BasePlugin):
             and not src.endswith(("png", "jpg", "jpeg", "gif")),
         ):
             if len(link["src"]) > 0:
+
                 if link["src"][0] == ".":
                     md_src_path = link["src"][3:-1] + ".md"
                     md_src_path = md_src_path.replace(".m.md", ".md")
@@ -130,16 +148,15 @@ class EmbedFile(BasePlugin):
 
                 elif link["src"][0] == "/":
                     if link["src"].endswith("/"):
-                        md_src_path = link["src"][1:] + ".md"
+                        md_src_path = link["src"][:-1] + ".md"
                     else:
                         md_src_path = link["src"] + ".md"
                     md_link_path = os.path.join(config["docs_dir"], md_src_path)
                     md_link_path = Path(unquote(md_link_path)).resolve()
 
                 elif link["src"][0] != "#":
-
                     if link["src"].endswith("/"):
-                        md_src_path = link["src"][1:] + ".md"
+                        md_src_path = link["src"][:-1] + ".md"
                     else:
                         md_src_path = link["src"] + ".md"
 
@@ -155,17 +172,16 @@ class EmbedFile(BasePlugin):
                 md_link_path = Path(unquote(md_link_path)).resolve()
 
             if md_link_path != "" and len(link["src"]) > 0:
-                citation_part = ""
                 if "#" in link["alt"]:
                     # heading
                     citation_part = re.sub("^(.*)#", "#", link["alt"])
                 elif "#" in link["src"]:
                     citation_part = re.sub("^(.*)#", "#", link["src"])
-
+                else:
+                    citation_part=link['alt']
                 md_link_path = re.sub("#(.*)\.md", ".md", str(md_link_path))
                 md_link_path = md_link_path.replace("\.md", ".md")
                 md_link_path = Path(md_link_path)
-
                 if os.path.isfile(md_link_path):
                     soup = cite(md_link_path, link, soup, citation_part, config)
                 else:
