@@ -66,6 +66,8 @@ def cite(md_link_path, link, soup, citation_part, config):
     new_uri = str(md_link_path).replace(str(docs), str(url))
     new_uri = new_uri.replace("\\", "/")
     new_uri = new_uri.replace(".md", "/")
+    new_uri = new_uri.replace('//', '/')
+    new_uri = re.sub('https?:\/', '\g<0>/', new_uri)
     input_file = codecs.open(str(md_link_path), mode="r", encoding="utf-8")
     text = input_file.read()
 
