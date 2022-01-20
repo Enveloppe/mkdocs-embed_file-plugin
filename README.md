@@ -46,5 +46,8 @@ extra_css:
 ```
 You can find an example of custom css in [docs](docs/embed_link.css)
 
+# Limitation
+The embed file don't use plugin you would use, as wikilinks for example. 
+
 # Credit
 Thanks to [midnightprioriem](https://github.com/midnightprioriem/mkdocs-tooltipster-links-plugin) for the tooltip plugin. 
