@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.1 (2022-01-20)
+### Fix
+* Fix all contents citation ([`a5a21b6`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/a5a21b6efda0b44c09aa9b16d5db4c9106c2780b))
+
 ## v1.0.0 (2022-01-20)
 ### Feature
 * **commit:** First commit ([`0ef98d3`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/0ef98d3b1141c8a05a03133fd764de2160b0a288))
