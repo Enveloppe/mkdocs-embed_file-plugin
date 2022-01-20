@@ -72,7 +72,7 @@ def cite(md_link_path, link, soup, citation_part, config):
     contents = frontmatter.loads(text).content
     quote = search_in_file(citation_part, contents)
     if len(quote) > 0:
-        html = markdown.markdown(quote)
+        html = markdown.markdown(quote, extensions=['nl2br', 'footnotes', 'attr_list', 'mdx_breakless_lists', 'smarty', 'sane_lists', 'tables', 'admonition'])
         link_soup = BeautifulSoup(html, "html.parser")
         if link_soup:
             tooltip_template = (
