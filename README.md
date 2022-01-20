@@ -4,6 +4,7 @@ Support both wikilinks & normal links.
 Intended to be used by obsidian user.
 
 ![](docs/note3.png)
+![](docs/demo.gif)
 
 # Activate the plugin
 1. Run `pip install mkdocs-embed-file-plugins`
