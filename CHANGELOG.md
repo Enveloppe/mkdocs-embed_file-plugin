@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.3 (2022-01-20)
+### Fix
+* Adjust link generation ([`001d6e9`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/001d6e92a4f6556004382bb841b3b13c298dfda6))
+
+### Documentation
+* **gitignore:** Exclude build ([`80da76b`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/80da76b7f2f2433a154db5b41aed522de197e0bc))
+
 ## v1.0.2 (2022-01-20)
 ### Fix
 * **extension:** Add extension to parse markdown in embed files ([`5dfac7a`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/5dfac7a793cb03c27ebd406db42042f413c2ae32))
