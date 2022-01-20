@@ -3,10 +3,47 @@ A way to embed a file present in your docs.
 Support both wikilinks & normal links.
 Intended to be used by obsidian user.
 
-# How it's work
 
-- `![[filename#heading]]` to cite a part of a file, start to the heading to the next heading.
-- `![[filename^id]]` to cite a paragraph with an ID.
-- `![[filename]]` to cite a complete file.
+# Activate the plugin
+1. Run `pip install mkdocs-embed-file-plugin`
+2. Update your `mkdocs.yml` with :
+    ```yaml
+    plugins:
+      - search
+      - roamlinks 
+      - embed_file 
+    ```
+   (the plugin have a dependency to [roamlinks](https://github.com/Jackiexiao/mkdocs-roamlinks-plugin))
+3. [Override](https://www.mkdocs.org/user-guide/customizing-your-theme/) your `main.html` with :
+    ```html
+    {% extends "base.html" %}
+    {% block extrahead %}
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+   {% endblock %}
+    ```
 
+# Usage
 
+| Usage               | wikilinks                | markdown links           |
+|---------------------|--------------------------|--------------------------|
+| cite a entire file  | `![[filename]] `         | `![](filename) `         |
+| Cite a heading part | `![[filename#heading]] ` | `![](filename#heading)`  |
+| Cite a block        | `![[filename#^blockid]]` | `![](filename#^blockid)` |
+
+# CSS
+
+The plugin will create :
+- A link to the original file, with the form of : `<a href="original link" class="link_citation"><i class='fas fa-link'></i></a>`
+- A div with the founded content : `<div class="citation">content founded</div>`
+- In case of the link / contents is not found : `<div class="not_found">filename#part</div>`
+
+You can add a css in your `docs/assets/css` (or whatever the path is), and add it to your `mkdocs.yml` :
+```yml 
+extra_css:
+    - assets/css/embed_link.css
+```
+You can find an example of custom css in [docs](docs/embed_link.css)
+
+# Credit
+Thanks to [midnightprioriem](https://github.com/midnightprioriem/mkdocs-tooltipster-links-plugin) for the tooltip plugin. 
