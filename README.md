@@ -6,7 +6,7 @@ Intended to be used by obsidian user.
 ![](docs/note3.png)
 
 # Activate the plugin
-1. Run `pip install mkdocs-embed-file-plugin`
+1. Run `pip install mkdocs-embed-file-plugins`
 2. Update your `mkdocs.yml` with :
     ```yaml
     plugins:
