@@ -174,13 +174,13 @@ class EmbedFile(BasePlugin):
                 md_link_path = Path(unquote(md_link_path)).resolve()
 
             if md_link_path != "" and len(link["src"]) > 0:
-                if "#" in link["alt"]:
+                if "#" in link.get('alt', ''):
                     # heading
                     citation_part = re.sub("^(.*)#", "#", link["alt"])
-                elif "#" in link["src"]:
+                elif '#' in link.get('src', ''):
                     citation_part = re.sub("^(.*)#", "#", link["src"])
                 else:
-                    citation_part=link['alt']
+                    citation_part=link.get('alt', '')
                 md_link_path = re.sub("#(.*)\.md", ".md", str(md_link_path))
                 md_link_path = md_link_path.replace("\.md", ".md")
                 md_link_path = Path(md_link_path)
