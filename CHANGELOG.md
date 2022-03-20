@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.4 (2022-03-20)
+### Fix
+* Always get alt or do nothing ([`53987eb`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/53987eb9ce8d72961d7b7fee3bdc444acdc32f41))
+* Fix blog build if alt not found in link ([`3c51807`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/3c5180775fdf3bc9306806c7786600b939feffd2))
+* Revert files error ([`1065c1a`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/1065c1a7c98b19e3b7b6fcf36878271013b6e993))
+* Fix requirements & build because of the new https change ([`674b6df`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/674b6df4e5e05bf038f969dbaf31f95ab624f39c))
+
+### Documentation
+* **readme:** Add demo gif ([`c13137d`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/c13137dbf59ac9874ca911c555870101c4c7b7fb))
+
 ## v1.0.3 (2022-01-20)
 ### Fix
 * Adjust link generation ([`001d6e9`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/001d6e92a4f6556004382bb841b3b13c298dfda6))
