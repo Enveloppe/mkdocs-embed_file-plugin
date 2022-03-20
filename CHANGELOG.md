@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.5 (2022-03-20)
+### Fix
+* Requirements ([`48fc904`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/48fc904c4f8474ce8017d8bb460a51760c8b308e))
+
 ## v1.0.4 (2022-03-20)
 ### Fix
 * Always get alt or do nothing ([`53987eb`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/53987eb9ce8d72961d7b7fee3bdc444acdc32f41))
