@@ -180,16 +180,17 @@ class EmbedFile(BasePlugin):
                 elif '#' in link.get('src', ''):
                     citation_part = re.sub("^(.*)#", "#", link["src"])
                 else:
-                    citation_part=link.get('alt', '')
-                md_link_path = re.sub("#(.*)\.md", ".md", str(md_link_path))
-                md_link_path = md_link_path.replace("\.md", ".md")
-                md_link_path = Path(md_link_path)
-                if os.path.isfile(md_link_path):
-                    soup = cite(md_link_path, link, soup, citation_part, config)
-                else:
-                    link_found = search_doc(md_link_path, all_docs)
-                    if link_found != 0:
-                        soup = cite(link_found, link, soup, citation_part, config)
+                    citation_part=link.get('alt', False)
+                if citation_part:
+                    md_link_path = re.sub("#(.*)\.md", ".md", str(md_link_path))
+                    md_link_path = md_link_path.replace("\.md", ".md")
+                    md_link_path = Path(md_link_path)
+                    if os.path.isfile(md_link_path):
+                        soup = cite(md_link_path, link, soup, citation_part, config)
+                    else:
+                        link_found = search_doc(md_link_path, all_docs)
+                        if link_found != 0:
+                            soup = cite(link_found, link, soup, citation_part, config)
 
         souped_html = soup.prettify(soup.original_encoding)
         return souped_html
