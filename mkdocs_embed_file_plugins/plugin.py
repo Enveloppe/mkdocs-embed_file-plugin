@@ -4,9 +4,11 @@ import re
 from glob import iglob
 from pathlib import Path
 from urllib.parse import unquote
+
 import frontmatter
 import markdown
 from bs4 import BeautifulSoup
+from mdx_wikilink_plus.mdx_wikilink_plus import WikiLinkPlusExtension
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
@@ -50,6 +52,29 @@ def search_in_file(citation_part: str, contents: str):
     return []
 
 
+def mini_ez_links(urlo, base, end, url_whitespace, url_case):
+    file_name = urlo[2]
+    base, url_blog = base
+    all_docs = [x for x in iglob(str(base) + os.sep + "**", recursive=True)]
+    if file_name == "index":
+        file_name = "/"
+    # I don't want to deal with ambiguity
+    file_found = [
+        x for x in all_docs if os.path.basename(x).replace(".md", "") == file_name
+    ]
+    if file_found:
+        file_path = file_found[0].replace(base, "")
+        url = file_path.replace("\\", "/").replace(".md", "")
+        url = url.replace("//", "/")
+        url_blog_path = [x for x in url_blog.split("/") if len(x) > 0]
+        url_blog_path = url_blog_path[len(url_blog_path) - 1]
+        print(url_blog_path)
+        url = "/" + url_blog_path + url
+    else:
+        url = file_name
+    return url
+
+
 def cite(md_link_path, link, soup, citation_part, config):
     """
     Append the content of the founded file to the original file.
@@ -63,32 +88,47 @@ def cite(md_link_path, link, soup, citation_part, config):
     """
     docs = config["docs_dir"]
     url = config["site_url"]
+    md_config = {
+        "mdx_wikilink_plus": {"base_url": (docs, url), "build_url": mini_ez_links}
+    }
     new_uri = str(md_link_path).replace(str(docs), str(url))
     new_uri = new_uri.replace("\\", "/")
     new_uri = new_uri.replace(".md", "/")
-    new_uri = new_uri.replace('//', '/')
-    new_uri = re.sub('https?:\/', '\g<0>/', new_uri)
+    new_uri = new_uri.replace("//", "/")
+    new_uri = re.sub("https?:\/", "\g<0>/", new_uri)
     input_file = codecs.open(str(md_link_path), mode="r", encoding="utf-8")
     text = input_file.read()
 
     contents = frontmatter.loads(text).content
     quote = search_in_file(citation_part, contents)
     if len(quote) > 0:
-        html = markdown.markdown(quote, extensions=['nl2br', 'footnotes', 'attr_list', 'mdx_breakless_lists', 'smarty', 'sane_lists', 'tables', 'admonition'])
+        html = markdown.markdown(
+            quote,
+            extensions=[
+                "nl2br",
+                "footnotes",
+                "attr_list",
+                "mdx_breakless_lists",
+                "smarty",
+                "sane_lists",
+                "tables",
+                "admonition",
+                WikiLinkPlusExtension(md_config["mdx_wikilink_plus"]),
+            ],
+        )
         link_soup = BeautifulSoup(html, "html.parser")
         if link_soup:
             tooltip_template = (
                 "<a href='"
                 + str(new_uri)
-                + "' class='link_citation'><i class='fas fa-link'></i> </a> <div class='citation'>"
+                + "' class='link_citation'><i class='fas fa-link'></i> </a> <div"
+                " class='citation'>"
                 + str(link_soup)
                 + "</div>"
             )
     else:
         tooltip_template = (
-            "<div class='not_found'>"
-            + str(link['src'].replace('/',''))
-            + "</div>"
+            "<div class='not_found'>" + str(link["src"].replace("/", "")) + "</div>"
         )
     new_soup = str(soup).replace(str(link), str(tooltip_template))
     soup = BeautifulSoup(new_soup, "html.parser")
@@ -174,13 +214,13 @@ class EmbedFile(BasePlugin):
                 md_link_path = Path(unquote(md_link_path)).resolve()
 
             if md_link_path != "" and len(link["src"]) > 0:
-                if "#" in link.get('alt', ''):
+                if "#" in link.get("alt", ""):
                     # heading
                     citation_part = re.sub("^(.*)#", "#", link["alt"])
-                elif '#' in link.get('src', ''):
+                elif "#" in link.get("src", ""):
                     citation_part = re.sub("^(.*)#", "#", link["src"])
                 else:
-                    citation_part=link.get('alt', False)
+                    citation_part = link.get("alt", False)
                 if citation_part:
                     md_link_path = re.sub("#(.*)\.md", ".md", str(md_link_path))
                     md_link_path = md_link_path.replace("\.md", ".md")

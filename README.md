@@ -48,7 +48,9 @@ extra_css:
 You can find an example of custom css in [docs](docs/embed_link.css)
 
 # Limitation
-The embed file don't use plugin you would use, as wikilinks for example. 
+- The embed file don't use plugin you would use.
+- Wikilinks ambiguity are not supported : the first file with the name are used.
+- Image wikilinks are formated as links. At last you can click on it :D
 
 # Credit
 Thanks to [midnightprioriem](https://github.com/midnightprioriem/mkdocs-tooltipster-links-plugin) for the tooltip plugin. 

@@ -31,6 +31,6 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Mara-Li/mkdocs_embed_file_plugins",
     entry_points={
-        "mkdocs.plugins": ["embed_file =" "mkdocs_embed_file_plugins.plugin:EmbedFile"]
+        "mkdocs.plugins": ["embed_file =mkdocs_embed_file_plugins.plugin:EmbedFile"]
     },
 )

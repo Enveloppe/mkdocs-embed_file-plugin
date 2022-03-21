@@ -3,4 +3,4 @@ setuptools
 Markdown
 beautifulsoup4
 frontmatter
-rich
+mdx_wikilink_plus
