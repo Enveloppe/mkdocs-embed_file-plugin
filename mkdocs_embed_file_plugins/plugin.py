@@ -68,7 +68,6 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
         url = url.replace("//", "/")
         url_blog_path = [x for x in url_blog.split("/") if len(x) > 0]
         url_blog_path = url_blog_path[len(url_blog_path) - 1]
-        print(url_blog_path)
         url = "/" + url_blog_path + url
     else:
         url = file_name
