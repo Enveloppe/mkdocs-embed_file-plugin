@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.1.0 (2022-03-21)
+### Feature
+*  minimal support for wikilinks ([`20abfc6`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/20abfc60b23de98634bccb1f62383e08db0610b1))
+
 ## v1.0.5 (2022-03-20)
 ### Fix
 * Requirements ([`48fc904`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/48fc904c4f8474ce8017d8bb460a51760c8b308e))
