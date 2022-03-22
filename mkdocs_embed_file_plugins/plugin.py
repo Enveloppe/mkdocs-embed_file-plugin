@@ -53,21 +53,17 @@ def search_in_file(citation_part: str, contents: str):
 
 
 def mini_ez_links(urlo, base, end, url_whitespace, url_case):
-    file_name = urlo[2]
     base, url_blog = base
-    all_docs = [x for x in iglob(str(base) + os.sep + "**", recursive=True)]
-    if file_name == "index":
-        file_name = "/"
-    # I don't want to deal with ambiguity
-    file_found = [
-        x for x in all_docs if os.path.basename(x).replace(".md", "") == file_name
-    ]
+    url_blog_path = [x for x in url_blog.split("/") if len(x) > 0]
+    url_blog_path = url_blog_path[len(url_blog_path) - 1]
+    all_docs = [re.sub(rf"(.*){url_blog_path}/docs/*", '', x.replace('\\', '/')).replace('.md', '') for x in iglob(str(base) + os.sep + "**", recursive=True) if os.path.isfile(x)]
+    file_name = urlo[2].replace('index', '')
+    file_found = ['/' + x for x in all_docs if os.path.basename(x) == file_name or x == file_name]
+    print(file_found)
     if file_found:
         file_path = file_found[0].replace(base, "")
         url = file_path.replace("\\", "/").replace(".md", "")
         url = url.replace("//", "/")
-        url_blog_path = [x for x in url_blog.split("/") if len(x) > 0]
-        url_blog_path = url_blog_path[len(url_blog_path) - 1]
         url = "/" + url_blog_path + url
     else:
         url = file_name
