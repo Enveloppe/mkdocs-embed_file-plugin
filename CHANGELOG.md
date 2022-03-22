@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v1.2.2 (2022-03-22)
+
+
 ## v1.2.1 (2022-03-22)
 ### Fix
 * Wikilinks in embed with shortpath ([`6b0de80`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/6b0de8079f4ad468a503a9512101ec333e08ac1b))
