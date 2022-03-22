@@ -88,7 +88,11 @@ def cite(md_link_path, link, soup, citation_part, config):
     docs = config["docs_dir"]
     url = config["site_url"]
     md_config = {
-        "mdx_wikilink_plus": {"base_url": (docs, url), "build_url": mini_ez_links}
+        "mdx_wikilink_plus": {
+            "base_url": (docs, url),
+            "build_url": mini_ez_links,
+            "image_class": "wikilink",
+        }
     }
     new_uri = str(md_link_path).replace(str(docs), str(url))
     new_uri = new_uri.replace("\\", "/")
@@ -122,7 +126,9 @@ def cite(md_link_path, link, soup, citation_part, config):
                 + str(new_uri)
                 + "' class='link_citation'><i class='fas fa-link'></i> </a> <div"
                 " class='citation'>"
-                + str(link_soup)
+                + str(link_soup).replace(
+                    '!<img class="wikilink', '<img class="wikilink'
+                )
                 + "</div>"
             )
     else:

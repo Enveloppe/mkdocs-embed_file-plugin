@@ -12,10 +12,8 @@ Intended to be used by obsidian user.
     ```yaml
     plugins:
       - search
-      - roamlinks 
       - embed_file 
     ```
-   (the plugin have a dependency to [roamlinks](https://github.com/Jackiexiao/mkdocs-roamlinks-plugin))
 3. [Override](https://www.mkdocs.org/user-guide/customizing-your-theme/) your `main.html` with :
     ```html
     {% extends "base.html" %}
@@ -50,7 +48,6 @@ You can find an example of custom css in [docs](docs/embed_link.css)
 # Limitation
 - The embed file don't use plugin you would use.
 - Wikilinks ambiguity are not supported : the first file with the name are used.
-- Image wikilinks are formated as links. At last you can click on it :D
 
 # Credit
 Thanks to [midnightprioriem](https://github.com/midnightprioriem/mkdocs-tooltipster-links-plugin) for the tooltip plugin. 
