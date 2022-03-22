@@ -1,11 +1,14 @@
 from setuptools import setup, find_packages
 
-version = "1.2.3"
+version = "1.2.4"
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 with open("requirements.txt") as f:
-    required = f.read().splitlines()
+    required = f.read()
+    required_pkg, required_repo=required.split('#dependency_links')
+    required_pkg = required_pkg.split()
+    required_repo = required_repo.split()
 setup(
     name="mkdocs_embed_file_plugins",
     python_requires=">=3.7",
@@ -14,7 +17,8 @@ setup(
     author="Mara-Li",
     author_email="mara-li@icloud.com",
     packages=find_packages(),
-    install_requires=required,
+    install_requires=required_pkg,
+    dependency_links=required_repo,
     license="AGPL",
     keywords="obsidian, obsidian.md, mkdocs, file, embed, cite, quote",
     classifiers=[
