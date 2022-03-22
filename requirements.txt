@@ -3,4 +3,6 @@ setuptools
 Markdown
 beautifulsoup4
 python-frontmatter
+
+#dependency_links
 git+https://github.com/neurobin/mdx_wikilink_plus/
