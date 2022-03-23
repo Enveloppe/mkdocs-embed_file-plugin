@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.2.3 (2022-03-23)
+### Fix
+* Requirements ([`76582a6`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/76582a6d0ef6c61cb3ffe0062c2ed50ca4e2b621))
+
 ## v1.2.2 (2022-03-22)
 
 
