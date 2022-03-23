@@ -14,7 +14,7 @@ setup(
     author="Mara-Li",
     author_email="mara-li@icloud.com",
     packages=find_packages(),
-    install_requires=required_pkg,
+    install_requires=required,
     license="AGPL",
     keywords="obsidian, obsidian.md, mkdocs, file, embed, cite, quote",
     classifiers=[
