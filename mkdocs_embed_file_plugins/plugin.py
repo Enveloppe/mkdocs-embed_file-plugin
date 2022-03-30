@@ -74,7 +74,6 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
         url = url_blog[:-1] + quote(url)
     else:
         url = file_name
-    print(url)
     return url
 
 
