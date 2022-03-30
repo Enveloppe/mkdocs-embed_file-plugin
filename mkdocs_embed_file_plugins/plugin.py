@@ -56,9 +56,17 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
     base, url_blog = base
     url_blog_path = [x for x in url_blog.split("/") if len(x) > 0]
     url_blog_path = url_blog_path[len(url_blog_path) - 1]
-    all_docs = [re.sub(rf"(.*)({url_blog_path})?/docs/*", '', x.replace('\\', '/')).replace('.md', '') for x in iglob(str(base) + os.sep + "**", recursive=True) if os.path.isfile(x)]
-    file_name = urlo[2].replace('index', '')
-    file_found = ['/' + x for x in all_docs if os.path.basename(x) == file_name or x == file_name]
+    all_docs = [
+        re.sub(rf"(.*)({url_blog_path})?/docs/*", "", x.replace("\\", "/")).replace(
+            ".md", ""
+        )
+        for x in iglob(str(base) + os.sep + "**", recursive=True)
+        if os.path.isfile(x)
+    ]
+    file_name = urlo[2].replace("index", "")
+    file_found = [
+        "/" + x for x in all_docs if os.path.basename(x) == file_name or x == file_name
+    ]
     if file_found:
         file_path = file_found[0].replace(base, "")
         url = file_path.replace("\\", "/").replace(".md", "")
