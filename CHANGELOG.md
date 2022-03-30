@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.2.7 (2022-03-30)
+### Fix
+* Remove print ([`2cb9a58`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/2cb9a5853b8205e245fadf4ed3f9b453cce5c408))
+
 ## v1.2.6 (2022-03-30)
 ### Fix
 * URL generation ([`0dac1a5`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/0dac1a526a8ff2141b15bb29f819afb0d22f2516))
