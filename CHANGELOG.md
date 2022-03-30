@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.2.6 (2022-03-30)
+### Fix
+* URL generation ([`0dac1a5`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/0dac1a526a8ff2141b15bb29f819afb0d22f2516))
+
 ## v1.2.5 (2022-03-23)
 
 
