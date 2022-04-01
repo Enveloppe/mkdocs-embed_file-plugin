@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.2.9 (2022-04-01)
+### Fix
+* Links in embed generation ([`204b6d7`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/204b6d70b31da1df3c6407d9f8f2f933e626dff3))
+
 ## v1.2.8 (2022-04-01)
 ### Fix
 * HTTPS: // removed ([`a210d87`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/a210d870f30911bccdac731924c12d4707eb54b6))
