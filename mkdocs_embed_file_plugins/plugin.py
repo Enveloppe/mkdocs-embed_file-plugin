@@ -74,6 +74,8 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
         url = url_blog[:-1] + quote(url)
         if not url.startswith(('https:/', 'http:/')):
             url = 'https://' + url
+        if not url.endswith('/') and not url.endswith(('png', 'jpg', 'jpeg', 'gif', 'webm')):
+            url = url + '/'
     else:
         url = file_name
     return url
