@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.2.8 (2022-04-01)
+### Fix
+* HTTPS: // removed ([`a210d87`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/a210d870f30911bccdac731924c12d4707eb54b6))
+
 ## v1.2.7 (2022-03-30)
 ### Fix
 * Remove print ([`2cb9a58`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/2cb9a5853b8205e245fadf4ed3f9b453cce5c408))
