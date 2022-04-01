@@ -72,6 +72,8 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
         url = file_path.replace("\\", "/").replace(".md", "")
         url = url.replace("//", "/")
         url = url_blog[:-1] + quote(url)
+        if not url.startswith(('https:/', 'http:/')):
+            url = 'https://' + url
     else:
         url = file_name
     return url
