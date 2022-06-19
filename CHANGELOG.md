@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.2.10 (2022-06-19)
+### Fix
+* Prettify broke plugin ([`bde7ded`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/bde7ded9c605c9652264b62fcd4c587ab84e4ce3))
+
 ## v1.2.9 (2022-04-01)
 ### Fix
 * Links in embed generation ([`204b6d7`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/204b6d70b31da1df3c6407d9f8f2f933e626dff3))
