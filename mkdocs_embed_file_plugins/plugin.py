@@ -22,7 +22,7 @@ def search_in_file(citation_part: str, contents: str):
     Returns: the part found
     """
     data = contents.split("\n")
-    if not "#" in citation_part:
+    if "#" not in citation_part:
         # All text citation
         return contents
     elif "#" in citation_part and not "^" in citation_part:
@@ -166,6 +166,78 @@ def search_doc(md_link_path, all_docs):
     return 0
 
 
+def on_post_page(output_content, page, config):
+    soup = BeautifulSoup(output_content, "html.parser")
+    docs = Path(config["docs_dir"])
+    md_link_path = ""
+    all_docs = [
+        x
+        for x in iglob(str(docs) + os.sep + "**", recursive=True)
+        if x.endswith(".md")
+    ]
+
+    for link in soup.findAll(
+        "img",
+        src=lambda src: src is not None
+        and "favicon" not in src
+        and not src.endswith(("png", "jpg", "jpeg", "gif")),
+    ):
+        if len(link["src"]) > 0:
+
+            if link["src"][0] == ".":
+                md_src_path = link["src"][3:-1] + ".md"
+                md_src_path = md_src_path.replace(".m.md", ".md")
+                md_link_path = os.path.join(
+                    os.path.dirname(page.file.abs_src_path), md_src_path
+                )
+                md_link_path = Path(unquote(md_link_path)).resolve()
+
+            elif link["src"][0] == "/":
+                if link["src"].endswith("/"):
+                    md_src_path = link["src"][:-1] + ".md"
+                else:
+                    md_src_path = link["src"] + ".md"
+                md_link_path = os.path.join(config["docs_dir"], md_src_path)
+                md_link_path = Path(unquote(md_link_path)).resolve()
+
+            elif link["src"][0] != "#":
+                if link["src"].endswith("/"):
+                    md_src_path = link["src"][:-1] + ".md"
+                else:
+                    md_src_path = link["src"] + ".md"
+
+                md_link_path = os.path.join(
+                    os.path.dirname(page.file.abs_src_path), md_src_path
+                )
+                md_link_path = Path(unquote(md_link_path)).resolve()
+        else:
+            md_src_path = link["src"] + ".md"
+            md_link_path = os.path.join(
+                os.path.dirname(page.file.abs_src_path), md_src_path
+            )
+            md_link_path = Path(unquote(md_link_path)).resolve()
+
+        if md_link_path != "" and len(link["src"]) > 0:
+            if "#" in link.get("alt", ""):
+                # heading
+                citation_part = re.sub("^(.*)#", "#", link["alt"])
+            elif "#" in link.get("src", ""):
+                citation_part = re.sub("^(.*)#", "#", link["src"])
+            else:
+                citation_part = link.get("alt", False)
+            if citation_part:
+                md_link_path = re.sub("#(.*)\.md", ".md", str(md_link_path))
+                md_link_path = md_link_path.replace("\.md", ".md")
+                md_link_path = Path(md_link_path)
+                if os.path.isfile(md_link_path):
+                    soup = cite(md_link_path, link, soup, citation_part, config)
+                else:
+                    link_found = search_doc(md_link_path, all_docs)
+                    if link_found != 0:
+                        soup = cite(link_found, link, soup, citation_part, config)
+    return soup.original_encoding
+
+
 class EmbedFile(BasePlugin):
 
     config_scheme = (("param", config_options.Type(str, default="")),)
@@ -173,76 +245,3 @@ class EmbedFile(BasePlugin):
     def __init__(self):
         self.enabled = True
         self.total_time = 0
-
-    def on_post_page(self, output_content, page, config):
-        soup = BeautifulSoup(output_content, "html.parser")
-        docs = Path(config["docs_dir"])
-        md_link_path = ""
-        all_docs = [
-            x
-            for x in iglob(str(docs) + os.sep + "**", recursive=True)
-            if x.endswith(".md")
-        ]
-
-        for link in soup.findAll(
-            "img",
-            src=lambda src: src is not None
-            and not "favicon" in src
-            and not src.endswith(("png", "jpg", "jpeg", "gif")),
-        ):
-            if len(link["src"]) > 0:
-
-                if link["src"][0] == ".":
-                    md_src_path = link["src"][3:-1] + ".md"
-                    md_src_path = md_src_path.replace(".m.md", ".md")
-                    md_link_path = os.path.join(
-                        os.path.dirname(page.file.abs_src_path), md_src_path
-                    )
-                    md_link_path = Path(unquote(md_link_path)).resolve()
-
-                elif link["src"][0] == "/":
-                    if link["src"].endswith("/"):
-                        md_src_path = link["src"][:-1] + ".md"
-                    else:
-                        md_src_path = link["src"] + ".md"
-                    md_link_path = os.path.join(config["docs_dir"], md_src_path)
-                    md_link_path = Path(unquote(md_link_path)).resolve()
-
-                elif link["src"][0] != "#":
-                    if link["src"].endswith("/"):
-                        md_src_path = link["src"][:-1] + ".md"
-                    else:
-                        md_src_path = link["src"] + ".md"
-
-                    md_link_path = os.path.join(
-                        os.path.dirname(page.file.abs_src_path), md_src_path
-                    )
-                    md_link_path = Path(unquote(md_link_path)).resolve()
-            else:
-                md_src_path = link["src"] + ".md"
-                md_link_path = os.path.join(
-                    os.path.dirname(page.file.abs_src_path), md_src_path
-                )
-                md_link_path = Path(unquote(md_link_path)).resolve()
-
-            if md_link_path != "" and len(link["src"]) > 0:
-                if "#" in link.get("alt", ""):
-                    # heading
-                    citation_part = re.sub("^(.*)#", "#", link["alt"])
-                elif "#" in link.get("src", ""):
-                    citation_part = re.sub("^(.*)#", "#", link["src"])
-                else:
-                    citation_part = link.get("alt", False)
-                if citation_part:
-                    md_link_path = re.sub("#(.*)\.md", ".md", str(md_link_path))
-                    md_link_path = md_link_path.replace("\.md", ".md")
-                    md_link_path = Path(md_link_path)
-                    if os.path.isfile(md_link_path):
-                        soup = cite(md_link_path, link, soup, citation_part, config)
-                    else:
-                        link_found = search_doc(md_link_path, all_docs)
-                        if link_found != 0:
-                            soup = cite(link_found, link, soup, citation_part, config)
-
-        souped_html = soup.prettify(soup.original_encoding)
-        return souped_html
