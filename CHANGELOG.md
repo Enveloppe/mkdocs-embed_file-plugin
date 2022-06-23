@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.2.11 (2022-06-23)
+### Fix
+* Plugin broke with last update ([`855b377`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/855b377f698ae17c83ce4e6bf4b6104ad4275a6b))
+
 ## v1.2.10 (2022-06-19)
 ### Fix
 * Prettify broke plugin ([`bde7ded`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/bde7ded9c605c9652264b62fcd4c587ab84e4ce3))
