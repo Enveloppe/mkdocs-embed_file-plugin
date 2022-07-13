@@ -56,6 +56,10 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
     base, url_blog = base
     url_blog_path = [x for x in url_blog.split('/') if len(x) > 0]
     url_blog_path = url_blog_path[len(url_blog_path) - 1]
+    file_name = urlo[2].replace('index', '')
+    file_name = file_name.replace('../', '')
+    file_name = file_name.replace('./', '')
+
     all_docs = [
         re.sub(rf"(.*)({url_blog_path})?/docs/*", '', x.replace('\\', '/')).replace(
             '.md', ''
@@ -63,7 +67,6 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
         for x in iglob(str(base) + os.sep + '**', recursive=True)
         if os.path.isfile(x)
     ]
-    file_name = urlo[2].replace('index', '')
     file_found = [
         '/' + x for x in all_docs if os.path.basename(x) == file_name or x == file_name
     ]
@@ -167,6 +170,11 @@ def search_doc(md_link_path, all_docs):
         return file[0]
     return 0
 
+def create_link(link):
+    if link.endswith('/'):
+        return link[:-1] + '.md'
+    else:
+        return link + '.md'
 
 class EmbedFile(BasePlugin):
     config_scheme = (('param', config_options.Type(str, default='')),)
@@ -192,35 +200,26 @@ class EmbedFile(BasePlugin):
         ):
             if len(link['src']) > 0:
 
-                if link['src'][0] == '.':
-                    md_src_path = link['src'][3:-1] + '.md'
-                    md_src_path = md_src_path.replace('.m.md', '.md')
-                    md_link_path = os.path.join(
-                        os.path.dirname(page.file.abs_src_path), md_src_path
-                    )
-                    md_link_path = Path(unquote(md_link_path)).resolve()
+                if link['src'][0] == '.': #relative links
+                    md_src=create_link(unquote(link['src']))
+                    md_link_path=Path(
+                        os.path.dirname(page.file.abs_src_path), md_src).resolve()
 
                 elif link['src'][0] == '/':
-                    if link['src'].endswith('/'):
-                        md_src_path = link['src'][:-1] + '.md'
-                    else:
-                        md_src_path = link['src'] + '.md'
+                    md_src_path=create_link(unquote(link['src']))
                     md_link_path = os.path.join(
                         config['docs_dir'], md_src_path)
                     md_link_path = Path(unquote(md_link_path)).resolve()
 
                 elif link['src'][0] != '#':
-                    if link['src'].endswith('/'):
-                        md_src_path = link['src'][:-1] + '.md'
-                    else:
-                        md_src_path = link['src'] + '.md'
+                    md_src_path=create_link(unquote(link['src']))
 
                     md_link_path = os.path.join(
                         os.path.dirname(page.file.abs_src_path), md_src_path
                     )
                     md_link_path = Path(unquote(md_link_path)).resolve()
             else:
-                md_src_path = link['src'] + '.md'
+                md_src_path = create_link(unquote(link['src']))
                 md_link_path = os.path.join(
                     os.path.dirname(page.file.abs_src_path), md_src_path
                 )
