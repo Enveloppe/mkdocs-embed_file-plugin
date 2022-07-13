@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v1.2.13 (2022-07-13)
+
+
 ## v1.2.12 (2022-07-13)
 ### Fix
 * Relative links not embedded correctly ([`c1a50ad`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/c1a50ad6a61fa1aa0842f55e0d4192c82aca3e08))
