@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.3.0 (2022-07-14)
+### Feature
+* Support of callouts+custom attributes ([`3d6fc0a`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/3d6fc0a65313023fae1bfcd856e76a461f158d43))
+
 ## v1.2.13 (2022-07-13)
 
 
