@@ -45,6 +45,28 @@ extra_css:
 ```
 You can find an example of custom css in [docs](docs/embed_link.css)
 
+# Configuration
+If you want, you can add compatibility with : 
+- [mkdocs callouts](https://github.com/sondregronas/mkdocs-callouts)
+- [mkdocs custom tags attributes](https://github.com/Mara-Li/mkdocs-custom-tags-attributes)
+
+To do that, adjust your `mkdocs.yml`
+```yaml
+markdown_extensions:
+   - attr_list
+   - nl2br
+   - admonition
+   - pymdownx.details
+plugins:
+   - search
+   - callouts
+   - custom-attributes:
+        file: 'assets/css/custom_attributes.css'
+   - embed_file:
+        callouts: true
+        custom-attribute: 'assets/css/custom_attributes.css' //need to be the same as in the config!
+```
+
 # Limitation
 - The embed file don't use plugin you would use.
 - Wikilinks ambiguity are not supported : the first file with the name are used.

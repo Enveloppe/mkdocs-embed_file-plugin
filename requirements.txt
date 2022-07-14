@@ -4,3 +4,5 @@ Markdown
 beautifulsoup4
 python-frontmatter
 mdx-wikilink-plus
+mkdocs-callouts
+mkdocs-custom-tags-attributes
