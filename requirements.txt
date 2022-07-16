@@ -3,6 +3,6 @@ setuptools
 Markdown
 beautifulsoup4
 python-frontmatter
-git+https://github.com/Mara-Li/mdx_wikilink_plus/master#egg=1.4.2
+git+https://github.com/Mara-Li/mdx_wikilink_plus/master#egg=mdx_wikilink_plus
 mkdocs-callouts
 mkdocs-custom-tags-attributes
