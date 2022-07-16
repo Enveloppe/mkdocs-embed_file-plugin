@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.3.8 (2022-07-16)
+### Fix
+* Add upper to everything so text searching ignore case ([`965ca31`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/965ca317380d1f2b43ad9d9a4eb3d188c54843f4))
+
 ## v1.3.7 (2022-07-16)
 
 
