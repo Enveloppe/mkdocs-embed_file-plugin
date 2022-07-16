@@ -30,26 +30,29 @@ def search_in_file(citation_part: str, contents: str):
     elif '#' in citation_part and not '^' in citation_part:
         # cite from title
         sub_section = []
-        citation_part = citation_part.replace('-', ' ').replace('#', '# ')
+        citation_part = citation_part.replace('-', ' ').replace('#', '# ').upper()
         heading = 0
         for i in data:
-            if citation_part in i and i.startswith('#'):
+            if citation_part in i.upper() and i.startswith('#'):
                 heading = i.count('#') * (-1)
                 sub_section.append([i])
             elif heading != 0:
                 inverse = i.count('#') * (-1)
                 if inverse == 0 or heading > inverse:
+                    print('Inverse ?', i)
                     sub_section.append([i])
                 elif inverse >= heading:
+                    print('Break ?')
                     break
         sub_section = [x for y in sub_section for x in y]
+
         sub_section = '\n'.join(sub_section)
         return sub_section
     elif '#^' in citation_part:
         # cite from block
         citation_part = citation_part.replace('#', '')
         for i in data:
-            if citation_part in i:
+            if citation_part in i.upper():
                 return i.replace(citation_part, '')
     return []
 
