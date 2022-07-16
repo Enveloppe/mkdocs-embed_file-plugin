@@ -21,7 +21,7 @@ external, internal = classification_dependencies()
 
 setup(
     name="mkdocs_embed_file_plugins",
-    python_requires=">=3.7",
+    python_requires=">=3.10",
     version=version,
     description="A plugin to quote file from docs",
     author="Mara-Li",
