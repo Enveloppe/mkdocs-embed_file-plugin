@@ -64,7 +64,7 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
     else:  # fallback to searching
         if urlo[2].endswith('.md'):
             internal_link = str(search_file_in_documentation(Path(urlo[2]).resolve(), Path(md_link_path).parent))
-        if not os.path.isfile(internal_link):
+        if not os.path.isfile(internal_link): # manual search
             file_name = urlo[2].replace('index', '')
             file_name = file_name.replace('../', '')
             file_name = file_name.replace('./', '')
@@ -185,7 +185,6 @@ def search_file_in_documentation(link: Path|str, config_dir: Path):
     if not file_name.endswith('.md'):
         file_name = file_name + '.md'
     for p in config_dir.rglob(f"*{file_name}"):
-        print(p)
         return p
     return 0
 
