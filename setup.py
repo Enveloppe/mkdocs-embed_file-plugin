@@ -2,10 +2,23 @@ from setuptools import setup, find_packages
 
 version = "1.3.0"
 
+def classification_dependencies():
+    with open("requirements.txt") as f:
+        external=[]
+        internal=[]
+        for package in f.read().splitlines():
+            if package.startswith("git+"):
+                external.append(package.replace('git+', ''))
+            else:
+                internal.append(package)
+    return external, internal
+
+
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
-with open("requirements.txt") as f:
-    required = f.read().splitlines()
+
+external, internal = classification_dependencies()
+
 setup(
     name="mkdocs_embed_file_plugins",
     python_requires=">=3.7",
@@ -14,7 +27,8 @@ setup(
     author="Mara-Li",
     author_email="mara-li@icloud.com",
     packages=find_packages(),
-    install_requires=required,
+    install_requires=internal,
+    dependency_links=external,
     license="AGPL",
     keywords="obsidian, obsidian.md, mkdocs, file, embed, cite, quote",
     classifiers=[
@@ -33,6 +47,6 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Mara-Li/mkdocs_embed_file_plugins",
     entry_points={
-        "mkdocs.plugins": ["embed_file =mkdocs_embed_file_plugins.plugin:EmbedFile"]
+        "mkdocs.plugins": ["embed_file=mkdocs_embed_file_plugins.plugin:EmbedFile"]
     },
 )
