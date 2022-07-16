@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.3.6 (2022-07-16)
+### Fix
+* In some condition, internal links were broke ([`6ed9c32`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/6ed9c32a6e3c678541f10e17486e165d4cd5321f))
+
 ## v1.3.5 (2022-07-16)
 
 
