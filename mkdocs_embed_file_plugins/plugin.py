@@ -62,24 +62,27 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
     if os.path.isfile(internal_link):
         internal_link = str(internal_link).replace(base, '')
     else:  # fallback to searching
-        file_name = urlo[2].replace('index', '')
-        file_name = file_name.replace('../', '')
-        file_name = file_name.replace('./', '')
+        if urlo[2].endswith('.md'):
+            internal_link = str(search_file_in_documentation(Path(urlo[2]).resolve(), Path(md_link_path).parent))
+        if not os.path.isfile(internal_link):
+            file_name = urlo[2].replace('index', '')
+            file_name = file_name.replace('../', '')
+            file_name = file_name.replace('./', '')
 
-        all_docs = [
-            re.sub(rf"(.*)({url_blog_path})?/docs/*", '', x.replace('\\', '/')).replace(
-                '.md', ''
-            )
-            for x in iglob(str(base) + os.sep + '**', recursive=True)
-            if os.path.isfile(x)
-        ]
-        file_found = [
-            '/' + x for x in all_docs if os.path.basename(x) == file_name or x == file_name
-        ]
-        if file_found:
-            internal_link = file_found[0]
-        else:
-            return file_name
+            all_docs = [
+                re.sub(rf"(.*)({url_blog_path})?/docs/*", '', x.replace('\\', '/')).replace(
+                    '.md', ''
+                )
+                for x in iglob(str(base) + os.sep + '**', recursive=True)
+                if os.path.isfile(x)
+            ]
+            file_found = [
+                '/' + x for x in all_docs if os.path.basename(x) == file_name or x == file_name
+            ]
+            if file_found:
+                internal_link = file_found[0]
+            else:
+                return file_name
     file_path = internal_link.replace(base, '')
     url = file_path.replace('\\', '/').replace('.md', '')
     url = url.replace('//', '/')
@@ -122,6 +125,10 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
 
     contents = frontmatter.loads(text).content
     quote = search_in_file(citation_part, contents)
+    tooltip_template = (
+            "<div class='not_found'>" +
+            str(link['src'].replace('/', '')) + '</div>'
+    )
     if len(quote) > 0:
         if callouts:
             quote = CalloutsPlugin().on_page_markdown(quote, None, None, None)
@@ -167,31 +174,22 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
     return soup
 
 
-def search_doc(md_link_path, all_docs):
-    """
-    Search a file in the docs
-    Args:
-        md_link_path: Path to check
-        all_docs: a list containing all path to the file
-    Returns: Path to link found or 0 otherwise
-
-    """
-    if os.path.basename(md_link_path) == '.md':
-        md_link_path = str(md_link_path).replace(
-            f'{os.sep}.md', f'{os.sep}index.md')
-    else:
-        md_link_path = str(md_link_path).replace(f'{os.sep}.md', '')
-    file = [x for x in all_docs if Path(x) == Path(md_link_path)]
-    if len(file) > 0:
-        return file[0]
-    return 0
-
-
 def create_link(link):
     if link.endswith('/'):
         return link[:-1] + '.md'
     else:
         return link + '.md'
+
+def search_file_in_documentation(link: Path|str, config_dir: Path):
+    file_name = os.path.basename(link)
+    if not file_name.endswith('.md'):
+        file_name = file_name + '.md'
+    for p in config_dir.rglob(f"*{file_name}"):
+        print(p)
+        return p
+    return 0
+
+
 
 
 class EmbedFile(BasePlugin):
@@ -215,7 +213,7 @@ class EmbedFile(BasePlugin):
         for link in soup.findAll(
                 'img',
                 src=lambda src: src is not None and 'favicon' not in src and not src.endswith(
-                    ('png', 'jpg', 'jpeg', 'gif')),
+                    ('png', 'jpg', 'jpeg', 'gif', 'svg')),
         ):
             if len(link['src']) > 0:
 
@@ -223,6 +221,9 @@ class EmbedFile(BasePlugin):
                     md_src = create_link(unquote(link['src']))
                     md_link_path = Path(
                         os.path.dirname(page.file.abs_src_path), md_src).resolve()
+                    if not os.path.isfile(md_link_path):
+                        md_link_path = search_file_in_documentation(md_link_path, docs)
+
 
                 elif link['src'][0] == '/':
                     md_src_path = create_link(unquote(link['src']))
@@ -261,12 +262,7 @@ class EmbedFile(BasePlugin):
                         soup = cite(md_link_path, link, soup,
                                     citation_part, config, callout, self.config['custom-attributes'])
                     else:
-                        all_docs = [
-                            x
-                            for x in iglob(str(docs) + os.sep + '**', recursive=True)
-                            if x.endswith('.md')
-                        ]
-                        link_found = search_doc(md_link_path, all_docs)
+                        link_found=search_file_in_documentation(md_link_path, docs)
                         if link_found != 0:
                             soup = cite(link_found, link, soup,
                                         citation_part, config, callout, self.config['custom-attributes'])
