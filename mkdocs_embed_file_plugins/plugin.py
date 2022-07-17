@@ -39,10 +39,8 @@ def search_in_file(citation_part: str, contents: str):
             elif heading != 0:
                 inverse = i.count('#') * (-1)
                 if inverse == 0 or heading > inverse:
-                    print('Inverse ?', i)
                     sub_section.append([i])
                 elif inverse >= heading:
-                    print('Break ?')
                     break
         sub_section = [x for y in sub_section for x in y]
 
@@ -97,6 +95,15 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
     return url
 
 
+def strip_comments(markdown):
+    file_content = markdown.split('\n')
+    markdown = ''
+    for line in file_content:
+        if not re.search(r'%%(.*)%%', line) or not line.startswith('%%') or not line.endswith('%%'):
+            markdown += line + '\n'
+    markdown = re.sub(r'%%(.*)%%', '', markdown, flags=re.DOTALL)
+    return markdown
+
 def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr):
     """Append the content of the founded file to the original file.
 
@@ -141,6 +148,7 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
                 'docs_dir': docs
             }
             quote = convert_text_attributes(quote, config_attr)
+        quote = strip_comments(quote)
         html = markdown.markdown(
             quote,
             extensions=[
