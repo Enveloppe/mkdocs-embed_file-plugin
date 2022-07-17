@@ -234,7 +234,6 @@ class EmbedFile(BasePlugin):
                     if not os.path.isfile(md_link_path):
                         md_link_path = search_file_in_documentation(md_link_path, docs)
 
-
                 elif link['src'][0] == '/':
                     md_src_path = create_link(unquote(link['src']))
                     md_link_path = os.path.join(
