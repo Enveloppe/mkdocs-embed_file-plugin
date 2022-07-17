@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.4.0 (2022-07-17)
+### Feature
+* Strip obsidian comments ([`78dce9f`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/78dce9f8b73721121b08d95c0297ec7574cdb7aa))
+
 ## v1.3.8 (2022-07-16)
 ### Fix
 * Add upper to everything so text searching ignore case ([`965ca31`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/965ca317380d1f2b43ad9d9a4eb3d188c54843f4))
