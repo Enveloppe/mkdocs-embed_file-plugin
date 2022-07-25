@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v1.5.0 (2022-07-25)
+
+
 ## v1.4.0 (2022-07-17)
 ### Feature
 * Strip obsidian comments ([`78dce9f`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/78dce9f8b73721121b08d95c0297ec7574cdb7aa))
