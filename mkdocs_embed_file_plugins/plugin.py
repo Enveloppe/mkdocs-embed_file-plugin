@@ -16,7 +16,7 @@ from mkdocs_callouts.plugin import CalloutsPlugin
 from custom_attributes.plugin import convert_text_attributes
 
 
-def search_in_file(citation_part: str, contents: str) -> Union[str,None]:
+def search_in_file(citation_part: str, contents: str) -> str:
     """
     Search a part in the file
     Args:
@@ -53,7 +53,7 @@ def search_in_file(citation_part: str, contents: str) -> Union[str,None]:
         for i in data:
             if citation_part in i.upper():
                 return i.replace(citation_part, '')
-    return None
+    return ''
 
 
 def mini_ez_links(urlo, base, end, url_whitespace, url_case):
