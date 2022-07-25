@@ -1,4 +1,5 @@
 import codecs
+from typing import Union, List, Tuple, Dict, Any
 import os
 import re
 from glob import iglob
@@ -12,10 +13,10 @@ from mdx_wikilink_plus.mdx_wikilink_plus import WikiLinkPlusExtension
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 from mkdocs_callouts.plugin import CalloutsPlugin
-from custom_attributes.plugin import read_custom, convert_hashtags, convert_text_attributes
+from custom_attributes.plugin import convert_text_attributes
 
 
-def search_in_file(citation_part: str, contents: str):
+def search_in_file(citation_part: str, contents: str) -> Union[str,None]:
     """
     Search a part in the file
     Args:
@@ -52,7 +53,7 @@ def search_in_file(citation_part: str, contents: str):
         for i in data:
             if citation_part in i.upper():
                 return i.replace(citation_part, '')
-    return []
+    return None
 
 
 def mini_ez_links(urlo, base, end, url_whitespace, url_case):
@@ -104,7 +105,7 @@ def strip_comments(markdown):
     markdown = re.sub(r'%%(.*)%%', '', markdown, flags=re.DOTALL)
     return markdown
 
-def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr):
+def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr) -> BeautifulSoup:
     """Append the content of the founded file to the original file.
 
     Args:
@@ -191,7 +192,7 @@ def create_link(link):
     else:
         return link + '.md'
 
-def search_file_in_documentation(link: Path|str, config_dir: Path):
+def search_file_in_documentation(link: Union[Path,str], config_dir: Path) -> Union[Path, int]:
     file_name = os.path.basename(link)
     if not file_name.endswith('.md'):
         file_name = file_name + '.md'
@@ -200,11 +201,9 @@ def search_file_in_documentation(link: Path|str, config_dir: Path):
     return 0
 
 
-
-
 class EmbedFile(BasePlugin):
     config_scheme = (
-        ('callouts', config_options.Type(str|bool, default='false')),
+        ('callouts', config_options.Type(bool, default=False)),
         ('custom-attributes', config_options.Type(str, default=''))
     )
 
@@ -212,18 +211,15 @@ class EmbedFile(BasePlugin):
         self.enabled = True
         self.total_time = 0
 
-    def on_post_page(self, output_content, page, config):
+    def on_post_page(self, output_content, page, config) -> str:
         soup = BeautifulSoup(output_content, 'html.parser')
         docs = Path(config['docs_dir'])
         md_link_path = ''
         callout = self.config['callouts']
-        if isinstance(callout, str):
-            callout = ast.literal_eval(callout.title())
-
         for link in soup.findAll(
                 'img',
                 src=lambda src: src is not None and 'favicon' not in src and not src.endswith(
-                    ('png', 'jpg', 'jpeg', 'gif', 'svg')),
+                    ('png', 'jpg', 'jpeg', 'gif', 'svg')) and not 'www' in src and not 'http' in src,
         ):
             if len(link['src']) > 0:
 
