@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.0 (2022-07-26)
+### Fix
+* Nonetype has no len ([`d948607`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/d94860740cf69fdaf0b9595b27f44ecb9f39b969))
+
 ## v1.5.0 (2022-07-25)
 
 
