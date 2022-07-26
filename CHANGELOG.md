@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.1 (2022-07-26)
+### Fix
+* URI broke plugins ([`32ea6a5`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/32ea6a5602138802fc49305d96178daddcf9d0af))
+
 ## v1.6.0 (2022-07-26)
 ### Fix
 * Nonetype has no len ([`d948607`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/d94860740cf69fdaf0b9595b27f44ecb9f39b969))
