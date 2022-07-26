@@ -219,7 +219,7 @@ class EmbedFile(BasePlugin):
         for link in soup.findAll(
                 'img',
                 src=lambda src: src is not None and 'favicon' not in src and not src.endswith(
-                    ('png', 'jpg', 'jpeg', 'gif', 'svg')) and not 'www' in src and not 'http' in src,
+                    ('png', 'jpg', 'jpeg', 'gif', 'svg')) and not 'www' in src and not 'http' in src and not '://' in src',
         ):
             if len(link['src']) > 0:
 
