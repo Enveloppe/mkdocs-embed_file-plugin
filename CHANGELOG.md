@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.2 (2022-07-26)
+### Fix
+* EOL while scanning string literal ([`a210f53`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/a210f5356c074e5b47a063f697c367e5a74fbdfa))
+
 ## v1.6.1 (2022-07-26)
 ### Fix
 * URI broke plugins ([`32ea6a5`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/32ea6a5602138802fc49305d96178daddcf9d0af))
