@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.3 (2022-07-28)
+
+
 ## v1.6.2 (2022-07-26)
 ### Fix
 * EOL while scanning string literal ([`a210f53`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/a210f5356c074e5b47a063f697c367e5a74fbdfa))
