@@ -167,10 +167,9 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
         link_soup = BeautifulSoup(html, 'html.parser')
         if link_soup:
             tooltip_template = (
-                "<a href='"
+                "<div class='citation'> <a href='"
                 + str(new_uri)
-                + "' class='link_citation'><i class='fas fa-link'></i> </a> <div"
-                " class='citation'>"
+                + "' class='link_citation'><i class='fas fa-link'></i> </a>"
                 + str(link_soup).replace(
                     '!<img class="wikilink', '<img class="wikilink'
                 )
@@ -226,6 +225,7 @@ class EmbedFile(BasePlugin):
                     and not '://' in src,
         ):
             if len(link['src']) > 0:
+
 
                 if link['src'][0] == '.':  # relative links
                     md_src = create_link(unquote(link['src']))
