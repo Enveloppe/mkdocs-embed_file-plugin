@@ -230,7 +230,6 @@ class EmbedFile(BasePlugin):
         ):
             if len(link['src']) > 0:
                 if link['src'][0] == '.':  # relative links
-                    print('*** FOUND . LINK ***', link['src'])
                     md_src = create_link(unquote(link['src']))
                     md_link_path = Path(
                         os.path.dirname(page.file.abs_src_path), md_src).resolve()
@@ -238,7 +237,6 @@ class EmbedFile(BasePlugin):
                         md_link_path = search_file_in_documentation(md_link_path, docs)
 
                 elif link['src'][0] == '/':
-                    print('*** FOUND / LINK ***', link['src'])
                     md_src_path = create_link(unquote(link['src']))
                     md_link_path = os.path.join(
                         config['docs_dir'], md_src_path)
@@ -251,9 +249,7 @@ class EmbedFile(BasePlugin):
                     md_link_path = os.path.join(
                         os.path.dirname(page.file.abs_src_path), md_src_path
                     )
-                    md_link_path = re.sub(r'/#(.*).md$', '.md', md_link_path)
                     md_link_path = Path(unquote(md_link_path)).resolve()
-                    print('*** FOUND # LINK ***', unquote(link['src']), md_link_path)
 
             else:
                 print('*** FOUND EMPTY LINK ***', link['src'])
@@ -264,6 +260,7 @@ class EmbedFile(BasePlugin):
                 md_link_path = Path(unquote(md_link_path)).resolve()
 
             if md_link_path != '' and len(link['src']) > 0:
+                md_link_path = re.sub(r'/#(.*).md$', '.md', md_link_path)
                 if '#' in link.get('alt', ''):
                     # heading
                     citation_part = re.sub('^(.*)#', '#', link['alt'])
@@ -272,9 +269,6 @@ class EmbedFile(BasePlugin):
                 else:
                     citation_part = link.get('alt', False)
                 if citation_part:
-                    md_link_path = re.sub(
-                        '#(.*)\.md', '.md', str(md_link_path))
-                    md_link_path = md_link_path.replace('\.md', '.md')
                     md_link_path = Path(md_link_path)
                     if os.path.isfile(md_link_path):
                         soup = cite(md_link_path, link, soup,
