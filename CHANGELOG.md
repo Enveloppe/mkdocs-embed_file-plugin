@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.9 (2022-09-26)
+
+
 ## v1.6.8 (2022-09-26)
 ### Fix
 * Debugging ([`72c7c3a`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/72c7c3ae190bb81c19e46897d7c3b8811194363d))
