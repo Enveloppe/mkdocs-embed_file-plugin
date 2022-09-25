@@ -245,7 +245,6 @@ class EmbedFile(BasePlugin):
                     md_link_path = Path(unquote(md_link_path)).resolve()
 
                 elif link['src'][0] != '#':
-                    print('*** FOUND # LINK ***', link['src'])
 
                     md_src_path = create_link(unquote(link['src']))
 
@@ -253,6 +252,8 @@ class EmbedFile(BasePlugin):
                         os.path.dirname(page.file.abs_src_path), md_src_path
                     )
                     md_link_path = Path(unquote(md_link_path)).resolve()
+                    print('*** FOUND # LINK ***', unquote(link['src']), md_link_path, os.path.dirname(page.file.abs_src_path), md_src_path)
+
             else:
                 print('*** FOUND EMPTY LINK ***', link['src'])
                 md_src_path = create_link(unquote(link['src']))
