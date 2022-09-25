@@ -141,6 +141,7 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
             str(unquote(link['src'].replace('/', ''))) + '</div>'
     )
     if len(quote) > 0:
+        print('*** CITATION FOUND ***', unquote(citation_part), 'for : ', str(md_link_path), ' with link: ' + str(link) + ' and new_uri: ' + str(new_uri), ' and quote: ' + str(quote))
         if callouts:
             quote = CalloutsPlugin().on_page_markdown(quote, None, None, None)
         if len(custom_attr) > 0:
@@ -228,6 +229,7 @@ class EmbedFile(BasePlugin):
                     and not '://' in src,
         ):
             if len(link['src']) > 0:
+                print('*** FOUND LINK ***', link['src'])
                 if link['src'][0] == '.':  # relative links
                     md_src = create_link(unquote(link['src']))
                     md_link_path = Path(
@@ -236,12 +238,15 @@ class EmbedFile(BasePlugin):
                         md_link_path = search_file_in_documentation(md_link_path, docs)
 
                 elif link['src'][0] == '/':
+                    print('*** FOUND LINK ***', link['src'])
                     md_src_path = create_link(unquote(link['src']))
                     md_link_path = os.path.join(
                         config['docs_dir'], md_src_path)
                     md_link_path = Path(unquote(md_link_path)).resolve()
 
                 elif link['src'][0] != '#':
+                    print('*** FOUND LINK ***', link['src'])
+
                     md_src_path = create_link(unquote(link['src']))
 
                     md_link_path = os.path.join(
