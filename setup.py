@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = "1.6.15"
+version = "1.6.16"
 
 def classification_dependencies():
     with open("requirements.txt") as f:
