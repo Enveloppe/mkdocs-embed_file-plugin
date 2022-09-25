@@ -161,6 +161,8 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
                 'sane_lists',
                 'tables',
                 'admonition',
+                'codehilite',
+                'extra',
                 WikiLinkPlusExtension(md_config['mdx_wikilink_plus']),
             ],
         )
