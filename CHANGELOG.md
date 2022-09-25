@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.4 (2022-09-18)
+### Fix
+* Simply change the icon place to get a more minimalist view ([`4023908`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/4023908506c617869c7e2d47c2d980dd9372088f))
+
 ## v1.6.3 (2022-07-28)
 
 
