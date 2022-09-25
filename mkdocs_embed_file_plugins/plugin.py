@@ -14,7 +14,7 @@ from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 from mkdocs_callouts.plugin import CalloutsPlugin
 from custom_attributes.plugin import convert_text_attributes
-
+from mkdocs.exceptions import PluginError
 
 def search_in_file(citation_part: str, contents: str) -> str:
     """
@@ -138,7 +138,7 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
     quote = search_in_file(citation_part, contents)
     tooltip_template = (
             "<div class='not_found'>" +
-            str(link['src'].replace('/', '')) + '</div>'
+            str(unquote(link['src'].replace('/', ''))) + '</div>'
     )
     if len(quote) > 0:
         if callouts:
@@ -178,9 +178,10 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
                 + '</div>'
             )
     else:
+        print('Citation not found: ' + unquote(citation_part))
         tooltip_template = (
             "<div class='not_found'>" +
-            str(link['src'].replace('/', '')) + '</div>'
+            str(unquote(link['src'].replace('/', ''))) + '</div>'
         )
     new_soup = str(soup).replace(str(link), str(tooltip_template))
     soup = BeautifulSoup(new_soup, 'html.parser')
