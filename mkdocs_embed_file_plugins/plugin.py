@@ -229,8 +229,8 @@ class EmbedFile(BasePlugin):
                     and not '://' in src,
         ):
             if len(link['src']) > 0:
-                print('*** FOUND LINK ***', link['src'])
                 if link['src'][0] == '.':  # relative links
+                    print('*** FOUND . LINK ***', link['src'])
                     md_src = create_link(unquote(link['src']))
                     md_link_path = Path(
                         os.path.dirname(page.file.abs_src_path), md_src).resolve()
@@ -238,14 +238,14 @@ class EmbedFile(BasePlugin):
                         md_link_path = search_file_in_documentation(md_link_path, docs)
 
                 elif link['src'][0] == '/':
-                    print('*** FOUND LINK ***', link['src'])
+                    print('*** FOUND / LINK ***', link['src'])
                     md_src_path = create_link(unquote(link['src']))
                     md_link_path = os.path.join(
                         config['docs_dir'], md_src_path)
                     md_link_path = Path(unquote(md_link_path)).resolve()
 
                 elif link['src'][0] != '#':
-                    print('*** FOUND LINK ***', link['src'])
+                    print('*** FOUND # LINK ***', link['src'])
 
                     md_src_path = create_link(unquote(link['src']))
 
@@ -254,6 +254,7 @@ class EmbedFile(BasePlugin):
                     )
                     md_link_path = Path(unquote(md_link_path)).resolve()
             else:
+                print('*** FOUND EMPTY LINK ***', link['src'])
                 md_src_path = create_link(unquote(link['src']))
                 md_link_path = os.path.join(
                     os.path.dirname(page.file.abs_src_path), md_src_path
