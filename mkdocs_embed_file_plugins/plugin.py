@@ -51,7 +51,7 @@ def search_in_file(citation_part: str, contents: str) -> str:
         # cite from block
         citation_part = citation_part.replace('#', '')
         for i in data:
-            if citation_part in i.upper():
+            if re.search(re.escape(citation_part) + "$", i):
                 return i.replace(citation_part, '')
     return ''
 
