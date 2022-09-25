@@ -259,7 +259,7 @@ class EmbedFile(BasePlugin):
                 )
                 md_link_path = Path(unquote(md_link_path)).resolve()
 
-            if md_link_path != '' and len(link['src']) > 0:
+            if  (md_link_path != '' or md_link_path == 0) and len(link['src']) > 0:
                 if '#' in link.get('alt', ''):
                     # heading
                     citation_part = re.sub('^(.*)#', '#', link['alt'])
@@ -269,7 +269,7 @@ class EmbedFile(BasePlugin):
                     citation_part = link.get('alt', False)
                 if citation_part:
                     print('Looking for citation: ', citation_part, ' in file: ', md_link_path)
-                    md_link_path = Path(md_link_path)
+                    md_link_path = Path(str(md_link_path))
                     if os.path.isfile(md_link_path):
                         soup = cite(md_link_path, link, soup,
                                     citation_part, config, callout, self.config['custom-attributes'])
