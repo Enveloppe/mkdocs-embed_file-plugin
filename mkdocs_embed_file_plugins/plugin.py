@@ -136,6 +136,7 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
 
     contents = frontmatter.loads(text).content
     quote = search_in_file(citation_part, contents)
+    print('Citation part: ' + citation_part, ' Found :' + quote, ' with link: ' + str(md_link_path), ' and content: ' + str(contents), ' and new_uri: ' + str(new_uri))
     tooltip_template = (
             "<div class='not_found'>" +
             str(unquote(link['src'].replace('/', ''))) + '</div>'
@@ -178,7 +179,7 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
                 + '</div>'
             )
     else:
-        print('Citation not found: ' + unquote(citation_part))
+        print('**** Citation not found **** : ' + unquote(citation_part), 'for : ')
         tooltip_template = (
             "<div class='not_found'>" +
             str(unquote(link['src'].replace('/', ''))) + '</div>'
@@ -228,8 +229,6 @@ class EmbedFile(BasePlugin):
                     and not '://' in src,
         ):
             if len(link['src']) > 0:
-
-
                 if link['src'][0] == '.':  # relative links
                     md_src = create_link(unquote(link['src']))
                     md_link_path = Path(
