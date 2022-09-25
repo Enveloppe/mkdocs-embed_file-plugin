@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.6 (2022-09-26)
+### Fix
+* Add warning message for citation not found ([`b14221e`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/b14221e41a181e5d8ee2ea112d83cd1f9c8b662a))
+
 ## v1.6.5 (2022-09-25)
 ### Fix
 * Codeblocks was broken in citation ([`48d5939`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/48d5939d54148b728809911b1353297a936cef8c))
