@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.7 (2022-09-26)
+### Fix
+* Add log for unbug in prod ; will be removed after debug ([`d3e8679`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/d3e8679df269faf215581cb997fc288b3dfb416f))
+
 ## v1.6.6 (2022-09-26)
 ### Fix
 * Add warning message for citation not found ([`b14221e`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/b14221e41a181e5d8ee2ea112d83cd1f9c8b662a))
