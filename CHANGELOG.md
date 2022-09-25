@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.5 (2022-09-25)
+### Fix
+* Codeblocks was broken in citation ([`48d5939`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/48d5939d54148b728809911b1353297a936cef8c))
+* Url not found was removed ([`ba10291`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/ba10291eead4240e080cab89bbbdde9dcc474150))
+* Id not found ([`8c0f284`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/8c0f2846b8bc94ad743dcc27ddda52d266b4b6b6))
+
 ## v1.6.4 (2022-09-18)
 ### Fix
 * Simply change the icon place to get a more minimalist view ([`4023908`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/4023908506c617869c7e2d47c2d980dd9372088f))
