@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.6.8 (2022-09-26)
+### Fix
+* Debugging ([`72c7c3a`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/72c7c3ae190bb81c19e46897d7c3b8811194363d))
+
 ## v1.6.7 (2022-09-26)
 ### Fix
 * Add log for unbug in prod ; will be removed after debug ([`d3e8679`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/d3e8679df269faf215581cb997fc288b3dfb416f))
