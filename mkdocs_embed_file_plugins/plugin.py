@@ -141,7 +141,6 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
             str(unquote(link['src'].replace('/', ''))) + '</div>'
     )
     if len(quote) > 0:
-        print('*** CITATION FOUND ***', unquote(citation_part), 'for : ', str(md_link_path), ' with link: ' + str(link) + ' and new_uri: ' + str(new_uri), ' and quote: ' + str(quote))
         if callouts:
             quote = CalloutsPlugin().on_page_markdown(quote, None, None, None)
         if len(custom_attr) > 0:
@@ -268,7 +267,6 @@ class EmbedFile(BasePlugin):
                 else:
                     citation_part = link.get('alt', False)
                 if citation_part:
-                    print('Looking for citation: ', citation_part, ' in file: ', md_link_path)
                     md_link_path = Path(str(md_link_path))
                     if os.path.isfile(md_link_path):
                         soup = cite(md_link_path, link, soup,
