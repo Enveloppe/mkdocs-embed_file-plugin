@@ -250,7 +250,7 @@ class EmbedFile(BasePlugin):
 
                     md_link_path = os.path.join(
                         os.path.dirname(page.file.abs_src_path), md_src_path
-                    )
+                    ).replace(citation_part, '').replace('/.md', '.md')
                     md_link_path = Path(unquote(md_link_path)).resolve()
                     print('*** FOUND # LINK ***', unquote(link['src']), md_link_path, os.path.dirname(page.file.abs_src_path), md_src_path)
 
