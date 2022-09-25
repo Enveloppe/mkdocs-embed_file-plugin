@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.7.0 (2022-09-26)
+### Fix
+* Final fix of production building doesn't take embed ([`99d058a`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/99d058a9eb065912ba2c047f9c15cfeff247c191))
+
 ## v1.6.16 (2022-09-26)
 
 
