@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.8.3 (2022-09-26)
+### Fix
+* Remove footnotes in embeded contents ([`879e916`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/879e91699f8f112b26708cad3cbadf0fde5b5826))
+
 ## v1.8.2 (2022-09-26)
 ### Fix
 * Image and other links broken ([`76b7405`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/76b7405efb9f386acbbb062c6b7a024a34b7e09d))
