@@ -27,7 +27,7 @@ def search_in_file(citation_part: str, contents: str) -> str:
     data = contents.split('\n')
     if '#' not in citation_part:
         # All text citation
-        return contents
+        return re.sub(r'\^\w+$', '', contents)
     elif '#' in citation_part and not '^' in citation_part:
         # cite from title
         sub_section = []
@@ -45,7 +45,7 @@ def search_in_file(citation_part: str, contents: str) -> str:
                 elif inverse >= heading:
                     break
         sub_section = [x for y in sub_section for x in y]
-
+        sub_section = [re.sub(r'\^\w+$', '', x) for x in sub_section]
         sub_section = '\n'.join(sub_section)
         return sub_section
     elif '#^' in citation_part:
