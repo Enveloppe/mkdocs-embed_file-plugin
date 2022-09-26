@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v1.8.0 (2022-09-26)
+### Feature
+* Better display of not exist embed ([`5445b3c`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/5445b3cd02d44320efc84c409c1526357ca9b1c3))
+
+### Fix
+* Fix not found are not transformed in "not found" div ([`81e0d36`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/81e0d36820adb638574a2d0853102d19246adce3))
+* Fix auto citation in same file doesn't work ([`65b6dfc`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/65b6dfc3ad8db6ba196c78e51fc03c8e08fb65b8))
+
 ## v1.7.0 (2022-09-26)
 ### Fix
 * Final fix of production building doesn't take embed ([`99d058a`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/99d058a9eb065912ba2c047f9c15cfeff247c191))
