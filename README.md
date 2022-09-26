@@ -36,7 +36,11 @@ Intended to be used by obsidian user.
 The plugin will create :
 - A link to the original file, with the form of : `<a href="original link" class="link_citation"><i class='fas fa-link'></i></a>`
 - A div with the founded content : `<div class="citation">content founded</div>`
-- In case of the link / contents is not found : `<div class="not_found">filename#part</div>`
+- In case of the link / contents is not found the following block is created instead :
+   ```html
+   <div class='citation'><a class='link_citation'><i class='fas fa-link'></i></a><p style="text-align: center; display: block"><i class="not_found"> link_alt </i> {a configured message}</p></div>
+   ```      
+  The message for the not found file can be customized in `mkdocs.yml`. The default message is `file not exists`.
 
 You can add a css in your `docs/assets/css` (or whatever the path is), and add it to your `mkdocs.yml` :
 ```yml 
@@ -65,6 +69,7 @@ plugins:
    - embed_file:
         callouts: true
         custom-attribute: 'assets/css/custom_attributes.css' //need to be the same as in the config!
+        language_message: 'file not exists.'
 ```
 
 # Limitation

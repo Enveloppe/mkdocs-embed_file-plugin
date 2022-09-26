@@ -106,7 +106,7 @@ def strip_comments(markdown):
     markdown = re.sub(r'%%(.*)%%', '', markdown, flags=re.DOTALL)
     return markdown
 
-def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr) -> BeautifulSoup:
+def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr, msg) -> BeautifulSoup:
     """Append the content of the founded file to the original file.
 
     Args:
@@ -138,8 +138,11 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
     contents = frontmatter.loads(text).content
     quote = search_in_file(citation_part, contents)
     tooltip_template = (
-            "<div class='not_found'>" +
-            str(unquote(link['alt'].replace('/', ''))) + '</div>'
+            "<div class='citation'> <a href='"
+            + str(link['src'])
+            + "' class='link_citation'><i class='fas fa-link'></i> </a>"
+            + str(link['alt']) + ' not exists.'
+            + '</div>'
     )
     if len(quote) > 0:
         if callouts:
@@ -178,20 +181,19 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
                 )
                 + '</div>'
             )
+            new_soup = str(soup).replace(str(link), str(tooltip_template))
+            soup = BeautifulSoup(new_soup, 'html.parser')
+            return soup
     else:
         print('**** Citation not found **** : ' + unquote(citation_part), 'for : ', str(md_link_path), ' with link: ' + str(link) + ' and new_uri: ' + str(new_uri), ' and quote: ' + str(quote))
-        tooltip_template = (
-            "<div class='not_found'>" +
-            str(unquote(link['alt'].replace('/', ''))) + '</div>'
-        )
-    new_soup = str(soup).replace(str(link), str(tooltip_template))
-    soup = BeautifulSoup(new_soup, 'html.parser')
-    return soup
+        return tooltip_not_found(link, soup, msg)
 
-def tooltip_not_found(link, soup) -> BeautifulSoup:
+
+def tooltip_not_found(link, soup, msg) -> BeautifulSoup:
     tooltip_template = (
-            "<div class='not_found'>" +
-            str(unquote(link['alt'].replace('/', ''))) + '</div>'
+            "<div class='citation'> <a class='link_citation'><i class='fas fa-link'></i> </a>"
+            + '<p style="text-align: center; display: block"><i class="not_found">' + str(link['alt']) + f'</i> {msg}</p>'
+            + '</div>'
     )
     new_soup = str(soup).replace(str(link), str(tooltip_template))
     soup = BeautifulSoup(new_soup, 'html.parser')
@@ -215,7 +217,8 @@ def search_file_in_documentation(link: Union[Path,str], config_dir: Path) -> Uni
 class EmbedFile(BasePlugin):
     config_scheme = (
         ('callouts', config_options.Type(bool, default=False)),
-        ('custom-attributes', config_options.Type(str, default=''))
+        ('custom-attributes', config_options.Type(str, default='')),
+        ('language_message', config_options.Type(str, default='file not exists')),
     )
 
     def __init__(self):
@@ -227,6 +230,7 @@ class EmbedFile(BasePlugin):
         docs = Path(config['docs_dir'])
         md_link_path = ''
         callout = self.config['callouts']
+        language_message = self.config['language_message']
         for link in soup.findAll(
                 'img',
                 src=lambda src: src is not None 
@@ -270,7 +274,7 @@ class EmbedFile(BasePlugin):
                 )
                 md_link_path = Path(unquote(md_link_path)).resolve()
             if (md_link_path == 0):
-                soup = tooltip_not_found(link, soup)
+                soup = tooltip_not_found(link, soup, language_message)
             if  (md_link_path != '' or md_link_path == 0) and len(link['src']) > 0:
                 if '#' in link.get('alt', ''):
                     # heading
@@ -284,10 +288,10 @@ class EmbedFile(BasePlugin):
 
                     if os.path.isfile(md_link_path):
                         soup = cite(md_link_path, link, soup,
-                                    citation_part, config, callout, self.config['custom-attributes'])
+                                    citation_part, config, callout, self.config['custom-attributes'], language_message)
                     else:
                         link_found=search_file_in_documentation(md_link_path, docs)
                         if link_found != 0:
                             soup = cite(link_found, link, soup,
-                                        citation_part, config, callout, self.config['custom-attributes'])
+                                        citation_part, config, callout, self.config['custom-attributes'], language_message)
         return str(soup)
