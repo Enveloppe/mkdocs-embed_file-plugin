@@ -88,8 +88,8 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
                 internal_link = file_name
     file_path = internal_link.replace(base, '')
     url = file_path.replace('\\', '/').replace('.md', '')
+    url = url_blog + '/' + quote(url)
     url = url.replace('//', '/')
-    url = url_blog[:-1] + quote(url)
     if not url.startswith(('https:/', 'http:/')):
         url = 'https://' + url
     if not url.endswith('/') and not url.endswith(('png', 'jpg', 'jpeg', 'gif', 'webm')):
@@ -105,6 +105,8 @@ def strip_comments(markdown):
             markdown += line + '\n'
     markdown = re.sub(r'%%(.*)%%', '', markdown, flags=re.DOTALL)
     return markdown
+
+
 
 def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr, msg) -> BeautifulSoup:
     """Append the content of the founded file to the original file.
@@ -132,6 +134,7 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr,
     new_uri = new_uri.replace('.md', '/')
     new_uri = new_uri.replace('//', '/')
     new_uri = re.sub('https?:\/', '\g<0>/', new_uri)
+    new_uri = new_uri.replace('/index/', '/')
     input_file = codecs.open(str(md_link_path), mode='r', encoding='utf-8')
     text = input_file.read()
 
@@ -172,6 +175,7 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr,
         )
         link_soup = BeautifulSoup(html, 'html.parser')
         if link_soup:
+
             tooltip_template = (
                 "<div class='citation'> <a href='"
                 + str(new_uri)
