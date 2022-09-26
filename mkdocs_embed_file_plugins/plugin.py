@@ -88,14 +88,12 @@ def mini_ez_links(urlo, base, end, url_whitespace, url_case):
                 internal_link = file_name
     file_path = internal_link.replace(base, '')
     url = file_path.replace('\\', '/').replace('.md', '')
-    url = url_blog + '/' + quote(url)
-    url = url.replace('//', '/')
-    if not url.startswith(('https:/', 'http:/')):
+    url = re.sub(r'\/$', '', str(url_blog)) + '/' + quote(url)
+    if not url.startswith('http'):
         url = 'https://' + url
     if not url.endswith('/') and not url.endswith(('png', 'jpg', 'jpeg', 'gif', 'webm')):
         url = url + '/'
     return url
-
 
 def strip_comments(markdown):
     file_content = markdown.split('\n')
