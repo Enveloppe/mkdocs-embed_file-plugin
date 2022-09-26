@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v1.8.1 (2022-09-26)
+### Fix
+* Embed generation for links not found/auto citation ([`0885f3f`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/0885f3f4ac3cbf098cdc28547eb33257e77d8a74))
+* Remove block id in citation ([`6410472`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/6410472f020586291a4776173c43d6a6d26675b9))
+
 ## v1.8.0 (2022-09-26)
 ### Feature
 * Better display of not exist embed ([`5445b3c`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/5445b3cd02d44320efc84c409c1526357ca9b1c3))
