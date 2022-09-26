@@ -33,6 +33,7 @@ def search_in_file(citation_part: str, contents: str) -> str:
         sub_section = []
         citation_part = citation_part.replace('-', ' ').replace('#', '# ').upper()
         heading = 0
+
         for i in data:
             if citation_part in i.upper() and i.startswith('#'):
                 heading = i.count('#') * (-1)
@@ -187,6 +188,14 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
     soup = BeautifulSoup(new_soup, 'html.parser')
     return soup
 
+def tooltip_not_found(link, soup) -> BeautifulSoup:
+    tooltip_template = (
+            "<div class='not_found'>" +
+            str(unquote(link['alt'].replace('/', ''))) + '</div>'
+    )
+    new_soup = str(soup).replace(str(link), str(tooltip_template))
+    soup = BeautifulSoup(new_soup, 'html.parser')
+    return soup
 
 def create_link(link):
     if link.endswith('/'):
@@ -228,10 +237,13 @@ class EmbedFile(BasePlugin):
                     and not '://' in src,
         ):
             if len(link['src']) > 0:
-                if link['src'][0] == '.':  # relative links
+                if link['src'].startswith('./'):
+                    md_link_path = page.file.abs_src_path
+                elif link['src'][0] == '.':  # relative links
                     md_src = create_link(unquote(link['src']))
                     md_link_path = Path(
                         os.path.dirname(page.file.abs_src_path), md_src).resolve()
+                    md_link_path = re.sub(r'[\/\\]?#(.*)$', '', str(md_link_path))
                     if not os.path.isfile(md_link_path):
                         md_link_path = search_file_in_documentation(md_link_path, docs)
 
