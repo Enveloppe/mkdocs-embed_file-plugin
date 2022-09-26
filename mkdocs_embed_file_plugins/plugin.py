@@ -139,7 +139,7 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
     quote = search_in_file(citation_part, contents)
     tooltip_template = (
             "<div class='not_found'>" +
-            str(unquote(link['src'].replace('/', ''))) + '</div>'
+            str(unquote(link['alt'].replace('/', ''))) + '</div>'
     )
     if len(quote) > 0:
         if callouts:
@@ -182,7 +182,7 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr)
         print('**** Citation not found **** : ' + unquote(citation_part), 'for : ', str(md_link_path), ' with link: ' + str(link) + ' and new_uri: ' + str(new_uri), ' and quote: ' + str(quote))
         tooltip_template = (
             "<div class='not_found'>" +
-            str(unquote(link['src'].replace('/', ''))) + '</div>'
+            str(unquote(link['alt'].replace('/', ''))) + '</div>'
         )
     new_soup = str(soup).replace(str(link), str(tooltip_template))
     soup = BeautifulSoup(new_soup, 'html.parser')
@@ -269,7 +269,8 @@ class EmbedFile(BasePlugin):
                     os.path.dirname(page.file.abs_src_path), md_src_path
                 )
                 md_link_path = Path(unquote(md_link_path)).resolve()
-
+            if (md_link_path == 0):
+                soup = tooltip_not_found(link, soup)
             if  (md_link_path != '' or md_link_path == 0) and len(link['src']) > 0:
                 if '#' in link.get('alt', ''):
                     # heading
@@ -280,6 +281,7 @@ class EmbedFile(BasePlugin):
                     citation_part = link.get('alt', False)
                 if citation_part:
                     md_link_path = Path(str(md_link_path))
+
                     if os.path.isfile(md_link_path):
                         soup = cite(md_link_path, link, soup,
                                     citation_part, config, callout, self.config['custom-attributes'])
