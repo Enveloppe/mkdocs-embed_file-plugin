@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.8.2 (2022-09-26)
+### Fix
+* Image and other links broken ([`76b7405`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/76b7405efb9f386acbbb062c6b7a024a34b7e09d))
+
 ## v1.8.1 (2022-09-26)
 ### Fix
 * Embed generation for links not found/auto citation ([`0885f3f`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/0885f3f4ac3cbf098cdc28547eb33257e77d8a74))
