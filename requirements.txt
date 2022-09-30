@@ -6,3 +6,4 @@ python-frontmatter
 mdx-wikilink-plus
 mkdocs-callouts
 mkdocs-custom-tags-attributes
+pymdown-extensions
