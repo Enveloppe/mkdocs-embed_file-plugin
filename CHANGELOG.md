@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.1 (2022-12-10)
+### Fix
+* Use markdown_extension config instead of forcing value ([`44f609e`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/44f609ef4573f4aae1f229e82d62f3abb9e70628))
+
+### Documentation
+* Info about extensions ([`3c6dc61`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/3c6dc613b1a59fd0d3f99dd714ae844a9d5ed523))
+
 ## v2.0.0 (2022-10-01)
 ### Feature
 * Pydownx ([`4a2ef72`](https://github.com/Mara-Li/mkdocs_embed_file_plugins/commit/4a2ef7246f73788bcb963a2308da300da2e3aaa6))
