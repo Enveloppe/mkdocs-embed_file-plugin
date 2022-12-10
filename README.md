@@ -72,6 +72,8 @@ plugins:
         language_message: 'file not exists.'
 ```
 
+Note : Every extension set in `markdown_extensions` will be used for the converting, so you can use any extension you want.
+
 # Limitation
 - The embed file don't use plugin you would use.
 - Wikilinks ambiguity are not supported : the first file with the name are used.
