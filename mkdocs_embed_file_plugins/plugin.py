@@ -164,11 +164,11 @@ def cite(md_link_path, link, soup, citation_part, config,
             quote = convert_text_attributes(quote, config_attr)
         quote = strip_comments(quote)
         md_extensions = config['markdown_extensions']
-        wiki = WikiLinkPlusExtension(md_config['mdx_wikilink_plus'])
-        md_extensions.append(wiki)
+        md_extensions.append('mdx_wikilink_plus')
         html = markdown.markdown(
             quote,
             extensions=md_extensions,
+            extension_configs=md_config
         )
         link_soup = BeautifulSoup(html, 'html.parser')
         if link_soup:
