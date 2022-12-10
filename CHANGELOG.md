@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.2 (2022-12-10)
+### Fix
+* Use config file instead of list ([`dbe32ba`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/dbe32babda5226702f7fa410579b2692a520da3c))
+
 ## v2.0.1 (2022-12-10)
 ### Fix
 * Use markdown_extension config instead of forcing value ([`44f609e`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/44f609ef4573f4aae1f229e82d62f3abb9e70628))
