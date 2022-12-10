@@ -210,7 +210,7 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr,
             soup = BeautifulSoup(new_soup, 'html.parser')
             return soup
     else:
-        print('**** Citation not found **** : ' + unquote(citation_part), 'for : ', str(md_link_path), ' with link: ' + str(link) + ' and new_uri: ' + str(new_uri), ' and quote: ' + str(quote))
+        log = logging.getLogger('mkdocs.plugins.' + __name__)
         return tooltip_not_found(link, soup, msg)
 
 
