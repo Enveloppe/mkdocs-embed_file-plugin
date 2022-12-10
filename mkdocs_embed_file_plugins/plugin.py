@@ -155,44 +155,10 @@ def cite(md_link_path, link, soup, citation_part, config, callouts, custom_attr,
             }
             quote = convert_text_attributes(quote, config_attr)
         quote = strip_comments(quote)
+        md_extensions = config['markdown_extensions']
         html = markdown.markdown(
             quote,
-            extensions=[
-                'nl2br',
-                'footnotes',
-                'attr_list',
-                'mdx_breakless_lists',
-                'smarty',
-                'sane_lists',
-                'tables',
-                'admonition',
-                'codehilite',
-                'extra',
-                'pymdownx.tilde',
-                'pymdownx.superfences',
-                'pymdownx.striphtml',
-                'pymdownx.tabbed',
-                'pymdownx.tasklist',
-                'pymdownx.smartsymbols',
-                "pymdownx.arithmatex",
-                "pymdownx.b64",
-                "pymdownx.caret",
-                "pymdownx.critic",
-                "pymdownx.details",
-                "pymdownx.emoji",
-                "pymdownx.escapeall",
-                "pymdownx.highlight",
-                "pymdownx.extra",
-                "pymdownx.inlinehilite",
-                "pymdownx.keys",
-                "pymdownx.magiclink",
-                "pymdownx.mark",
-                "pymdownx.progressbar",
-                "pymdownx.saneheaders",
-                "pymdownx.smartsymbols",
-                "pymdownx.snippets",
-                WikiLinkPlusExtension(md_config['mdx_wikilink_plus']),
-            ],
+            extensions=md_extensions,
         )
         link_soup = BeautifulSoup(html, 'html.parser')
         if link_soup:
