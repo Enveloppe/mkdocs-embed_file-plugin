@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.3 (2023-01-09)
+### Fix
+* Markdown links are not corrected in embed ([`a83e247`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/a83e24701d67698ba0ab7aaf1ecc172887e55db8))
+
 ## v2.0.2 (2022-12-10)
 ### Fix
 * Use config file instead of list ([`dbe32ba`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/dbe32babda5226702f7fa410579b2692a520da3c))
