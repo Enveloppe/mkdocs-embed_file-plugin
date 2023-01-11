@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.4 (2023-01-11)
+### Fix
+* Fix module not found error ([`2cbdc54`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/2cbdc541f6d5176326286c875fe24ed48e9cd056))
+
 ## v2.0.3 (2023-01-09)
 ### Fix
 * Markdown links are not corrected in embed ([`a83e247`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/a83e24701d67698ba0ab7aaf1ecc172887e55db8))
