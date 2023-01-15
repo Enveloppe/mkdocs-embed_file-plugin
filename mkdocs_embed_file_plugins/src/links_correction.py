@@ -23,9 +23,10 @@ def convert_links_if_markdown(quote_str, base) :
     url_blog_path = [x for x in url_blog.split('/') if len(x) > 0]
     url_blog_path = url_blog_path[len(url_blog_path) - 1]
     for link in links :
-        internal_link = Path(md_link_path, link[1]).resolve()
-        url = create_url(internal_link, link[1], base, url_blog_path, False)
-        quote_str = quote_str.replace(link[1], url)
+        if not link[1].startswith('http') :
+            internal_link = Path(md_link_path, link[1]).resolve()
+            url = create_url(internal_link, link[1], base, url_blog_path, False)
+            quote_str = quote_str.replace(link[1], url)
     return quote_str
 
 
