@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.5 (2023-01-15)
+### Fix
+* Error using external links in markdown ([`1d43b17`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/1d43b171785a89799db2c089fa4af56168b08f5f))
+
 ## v2.0.4 (2023-01-11)
 ### Fix
 * Fix module not found error ([`2cbdc54`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/2cbdc541f6d5176326286c875fe24ed48e9cd056))
