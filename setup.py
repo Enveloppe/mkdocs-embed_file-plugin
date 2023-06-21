@@ -2,13 +2,14 @@ from setuptools import setup, find_packages
 
 version = "2.0.4"
 
+
 def classification_dependencies():
     with open("requirements.txt") as f:
-        external=[]
-        internal=[]
+        external = []
+        internal = []
         for package in f.read().splitlines():
             if package.startswith("git+"):
-                external.append(package.replace('git+', ''))
+                external.append(package.replace("git+", ""))
             else:
                 internal.append(package)
     return external, internal
