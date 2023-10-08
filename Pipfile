@@ -12,13 +12,17 @@ mdx-wikilink-plus = "*"
 mkdocs-callouts = "*"
 mkdocs-custom-tags-attributes = "*"
 pymdown-extensions = "*"
-black = "*"
-ruff = "*"
+setuptools = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.11"
+python_version = "3.12"
 
 [scripts]
 black = "black ."
+build = "build"
+upload = "twine upload dist/*"
+version="semantic-release version"
+publish = "semantic-release publish"
+release = "pipenv run version && pipenv run upload && pipenv run publish"
