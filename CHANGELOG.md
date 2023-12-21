@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.6 (2023-06-21)
+
+### Fix
+
+* Some path was wrong ([`debcfea`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/debcfeaf4ed0bbf84a86ddca8df2b3d29e873561))
+
 ## v2.0.5 (2023-01-15)
 ### Fix
 * Error using external links in markdown ([`1d43b17`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/1d43b171785a89799db2c089fa4af56168b08f5f))
