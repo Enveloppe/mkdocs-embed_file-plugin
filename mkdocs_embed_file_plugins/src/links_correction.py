@@ -20,6 +20,10 @@ def convert_links_if_markdown(quote_str, base):
     # search for links
     links = re.findall(r"\[([^\]]*)\]\(([^\)]*)\)", quote_str)
     base_data, url_blog, md_link_path = base
+    if not url_blog:
+        # generate a fake url for the links
+        raise Exception("site_url is not defined in mkdocs.yml")
+
     url_blog_path = [x for x in url_blog.split("/") if len(x) > 0]
     url_blog_path = url_blog_path[len(url_blog_path) - 1]
     for link in links:
