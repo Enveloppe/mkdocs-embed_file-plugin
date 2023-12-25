@@ -14,6 +14,7 @@ mkdocs-custom-tags-attributes = "*"
 pymdown-extensions = "*"
 setuptools = "*"
 mkdocs-embed-file-plugins = {file = "."}
+wheel = "*"
 
 [dev-packages]
 
