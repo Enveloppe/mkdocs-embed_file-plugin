@@ -13,6 +13,7 @@ mkdocs-callouts = "*"
 mkdocs-custom-tags-attributes = "*"
 pymdown-extensions = "*"
 setuptools = "*"
+mkdocs-embed-file-plugins = {file = "."}
 
 [dev-packages]
 
@@ -21,7 +22,7 @@ python_version = "3.12"
 
 [scripts]
 black = "black ."
-build = "build"
+build = "python setup.py sdist bdist_wheel"
 upload = "twine upload dist/*"
 version="semantic-release version"
 publish = "semantic-release publish"
