@@ -47,7 +47,9 @@ def search_in_file(citation_part: str, contents: str) -> str:
 
 
 def search_file_in_documentation(
-    link: Union[Path, str], config_dir: Path, base: any
+    link: Union[Path, str],
+    config_dir: Path,
+    base: any,  # type: ignore
 ) -> Union[Path, int]:
     file_name = os.path.basename(link)
     if not file_name.endswith(".md"):
@@ -58,7 +60,8 @@ def search_file_in_documentation(
     else:
         baseParent = Path(base).parents
         linksParent = Path(link).parents
-        # find the common parent
+        if (len(baseParent) == 0) or (len(linksParent) == 0):
+            return 0
         linksBaseEquals = [i for i in linksParent if i in baseParent][0]
         relative = Path(str(link).replace(str(linksBaseEquals), ""))
         for p in Path(base).rglob(f"**{relative}"):
