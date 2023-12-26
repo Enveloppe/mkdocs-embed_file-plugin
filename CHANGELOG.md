@@ -2,6 +2,21 @@
 
 
 
+## v2.0.9 (2023-12-26)
+
+### Chore
+
+* chore: set ruff config ([`ffd181e`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/ffd181e91ea2b627f94be66745dab89826de288c))
+
+### Fix
+
+* fix: prevent link index out of range ([`97e479c`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/97e479c85fd5cffa0f5aad373d67fa2fa98c74c3))
+
+### Unknown
+
+* Merge branch &#39;main&#39; of github.com:Mara-Li/mkdocs_embed_file_plugins ([`9e631f5`](https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin/commit/9e631f515d9777bb769c95f9161c3cd15a8e88ba))
+
+
 ## v2.0.8 (2023-12-25)
 
 ### Chore
