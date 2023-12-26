@@ -23,7 +23,7 @@ python_version = "3.12"
 
 [scripts]
 black = "black ."
-build = "python setup.py sdist bdist_wheel"
+build = "python -m build --sdist --wheel --outdir dist --no-isolation"
 upload = "twine upload dist/*"
 version="semantic-release version"
 publish = "semantic-release publish"

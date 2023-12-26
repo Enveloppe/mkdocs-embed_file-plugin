@@ -1,10 +1,17 @@
-from setuptools import setup, find_packages
+import shutil
+from pathlib import Path
+from typing import Any
+
+from setuptools import find_packages, setup
 
 version = "2.0.9"
 
+requirements = Path("requirements.txt")
+readme = Path("README.md")
 
-def classification_dependencies():
-    with open("requirements.txt") as f:
+
+def classification_dependencies() -> tuple[list[Any], list[Any]]:
+    with requirements.open("r", encoding="UTF-8") as f:
         external = []
         internal = []
         for package in f.read().splitlines():
@@ -15,10 +22,14 @@ def classification_dependencies():
     return external, internal
 
 
-with open("README.md", "r", encoding="utf-8") as fh:
+with readme.open("r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 external, internal = classification_dependencies()
+
+# remove old dist version
+
+shutil.rmtree("dist", ignore_errors=True)
 
 setup(
     name="mkdocs_embed_file_plugins",
@@ -38,15 +49,10 @@ setup(
         "Topic :: Text Processing :: Markup :: Markdown",
         "License :: OSI Approved :: GNU Affero General Public License v3 or later"
         " (AGPLv3+)",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
     ],
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Mara-Li/mkdocs_embed_file_plugins",
+    url="https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin",
     entry_points={
         "mkdocs.plugins": ["embed_file=mkdocs_embed_file_plugins.plugin:EmbedFile"]
     },
