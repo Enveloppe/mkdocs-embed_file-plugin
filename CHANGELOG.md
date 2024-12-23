@@ -1,6 +1,41 @@
 # CHANGELOG
 
 
+## v2.0.11 (2024-12-23)
+
+### Bug Fixes
+
+- **latex**: Preserve latex in citation
+  ([`0f6f181`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/0f6f181a5c7cdba36ad4279ab3014281acb0b389))
+
+### Chores
+
+- Refactor environment
+  ([`daa7d7d`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/daa7d7dc8179e1e20b4df26d7927a15dce26281b))
+
+- Refactor environment
+  ([`cea6931`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/cea693130244f818aec72b1aacfdadb7ec2df097))
+
+- Switch to uv & update env
+  ([`0aea40a`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/0aea40a177083d828af90b4369ac15da3382aafe))
+
+### Code Style
+
+- **lint**: Ruff
+  ([`84b419e`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/84b419ea947e479ac4971da3dda6c581dc86b385))
+
+- **lint**: Ruff
+  ([`da48cd8`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/da48cd83e36442847e6c20d050ecc2464ae1e59d))
+
+### Continuous Integration
+
+- Update config
+  ([`9679da6`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/9679da6bc2fa9dddf470b69c896183ac98f23f81))
+
+- Update config and add watch dog
+  ([`421aae7`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/421aae7a41b2b4ed4bd038e8cb51feecb89bdcc0))
+
+
 ## v2.0.10 (2024-12-23)
 
 ### Bug Fixes
