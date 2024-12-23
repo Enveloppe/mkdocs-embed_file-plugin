@@ -13,14 +13,14 @@ from custom_attributes.plugin import convert_text_attributes
 import logging
 
 from mkdocs_embed_file_plugins.src.links_correction import (
-    convert_links_if_markdown,
+    MULTIMEDIA_EXTENSIONS, convert_links_if_markdown,
     mini_ez_links,
-)
+    )
 from mkdocs_embed_file_plugins.src.search_quote import (
     search_file_in_documentation,
     search_in_file,
 )
-from mkdocs_embed_file_plugins.src.utils import create_link, strip_comments
+from mkdocs_embed_file_plugins.src.utils import add_not_found_class, create_link, strip_comments
 
 
 def cite(
@@ -115,7 +115,7 @@ def cite(
 def tooltip_not_found(link, soup, msg) -> BeautifulSoup:
     tooltip_template = (
         "<div class='citation'> <a class='link_citation'><i class='fas fa-link'></i> </a>"
-        + '<p style="text-align: center; display: block"><i class="not_found">'
+        + f'<p style="text-align: center; display: block"><i class="not_found" src={link["src"]}>'
         + str(link["alt"])
         + f"</i> {msg}</p>"
         + "</div>"
@@ -146,7 +146,7 @@ class EmbedFile(BasePlugin):
             "img",
             src=lambda src: src is not None
             and "favicon" not in src
-            and not src.endswith(("png", "jpg", "jpeg", "gif", "svg"))
+            and not any(src.lower().endswith(ext) for ext in MULTIMEDIA_EXTENSIONS)
             and "www" not in src
             and "http" not in src
             and "://" not in src,
@@ -223,4 +223,4 @@ class EmbedFile(BasePlugin):
                                 self.config["custom-attributes"],
                                 language_message,
                             )
-        return str(soup)
+        return add_not_found_class(str(soup))

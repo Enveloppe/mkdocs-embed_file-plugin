@@ -41,34 +41,40 @@ def search_in_file(citation_part: str, contents: str) -> str:
         citation_part = citation_part.replace("#", "")
         for i in data:
             if re.search(re.escape(citation_part) + "$", i):
-                print("found!", i.replace(citation_part, ""))
                 return i.replace(citation_part, "")
     return ""
 
 
-def search_file_in_documentation(
-    link: Union[Path, str],
-    config_dir: Path,
-    base: any,  # type: ignore
-) -> Union[Path, int]:
+def search_file_in_documentation(link: Union[Path, str], config_dir: Path, base: Path) -> Union[Path, int]:
+    """
+    Recherche un fichier spécifique dans la documentation.
+    """
     file_name = os.path.basename(link)
+
+    # Ignorer les liens non pertinents (par exemple, images, scripts, etc.)
+    if not re.search(r"(\.md$|[^./\\]+$)", file_name, re.IGNORECASE):
+        return 0
+
+    # Ajout de ".md" si absent
     if not file_name.endswith(".md"):
-        file_name = file_name + ".md"
-    if not file_name.startswith("index"):
-        for p in config_dir.rglob(f"*{file_name}"):
-            return p
-    else:
-        baseParent = Path(base).parents
-        linksParent = Path(link).parents
-        linksBaseEquals = [i for i in linksParent if i in baseParent]
-        if (
-            (len(baseParent) == 0)
-            or (len(linksParent) == 0)
-            or (len(linksBaseEquals) == 0)
-        ):
-            return 0
-        linksBaseEquals = linksBaseEquals[0]
-        relative = Path(str(link).replace(str(linksBaseEquals), ""))
-        for p in Path(base).rglob(f"**{relative}"):
-            return p
+        file_name += ".md"
+
+    # Recherche directe du fichier dans la structure
+    for p in config_dir.rglob(f"*{file_name}"):
+        return p
+
+    # Recherche un dossier correspondant au nom sans extension
+    folder_name = os.path.splitext(file_name)[0]
+    folder_path = config_dir / folder_name / "index.md"
+    if folder_path.is_file():
+        return folder_path
+
+    # Recherche élargie dans tous les sous-dossiers
+    for parent in config_dir.rglob("*"):
+        potential_path = parent / folder_name / "index.md"
+        if potential_path.is_file():
+            return potential_path
+
+    # Aucun fichier trouvé
+
     return 0
