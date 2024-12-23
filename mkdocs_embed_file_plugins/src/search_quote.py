@@ -45,7 +45,9 @@ def search_in_file(citation_part: str, contents: str) -> str:
     return ""
 
 
-def search_file_in_documentation(link: Union[Path, str], config_dir: Path, base: Path) -> Union[Path, int]:
+def search_file_in_documentation(
+    link: Union[Path, str], config_dir: Path, base: Path
+) -> Union[Path, int]:
     """
     Recherche un fichier spécifique dans la documentation.
     """

@@ -13,14 +13,19 @@ from custom_attributes.plugin import convert_text_attributes
 import logging
 
 from mkdocs_embed_file_plugins.src.links_correction import (
-    MULTIMEDIA_EXTENSIONS, convert_links_if_markdown,
+    MULTIMEDIA_EXTENSIONS,
+    convert_links_if_markdown,
     mini_ez_links,
-    )
+)
 from mkdocs_embed_file_plugins.src.search_quote import (
     search_file_in_documentation,
     search_in_file,
 )
-from mkdocs_embed_file_plugins.src.utils import add_not_found_class, create_link, strip_comments
+from mkdocs_embed_file_plugins.src.utils import (
+    add_not_found_class,
+    create_link,
+    strip_comments,
+)
 
 
 def cite(
