@@ -2,7 +2,6 @@
 name = "mkdocs-embed-file-plugin"
 version = "2.0.10"
 description = "A plugin to quote file from docs"
-readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "mkdocs",
@@ -18,7 +17,7 @@ dependencies = [
 authors = [
     { name = "Mara-Li", email = "mara-li@outlook.fr" }
 ]
-license = "AGPL"
+license = "AGPL-3.0-or-later"
 readme = "README.md"
 keywords = [
     "obsidian",
@@ -55,3 +54,12 @@ homepage = "https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin"
 
 [project.entry-points."mkdocs.plugins"]
 embed_file = "mkdocs_embed_file_plugins.plugin:EmbedFile"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.1.0",
+    "watchdog>=2.1.6",
+    "python-semantic-release>=9.15.2",
+    "build>=0.6.0",
+    "rich>=13.9.4",
+]
