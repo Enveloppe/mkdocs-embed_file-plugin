@@ -69,3 +69,6 @@ dev = [
 name = "pypi"
 url = "https://pypi.org/simple/"
 publish-url = "https://upload.pypi.org/legacy/"
+username = "__token__"
+password = { env = "UV_PUBLISH_TOKEN" }
+default = true
