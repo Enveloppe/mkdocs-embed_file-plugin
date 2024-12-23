@@ -16,7 +16,7 @@ dependencies = [
     "pymdown-extensions",
 ]
 authors = [
-    { name = "Mara-Li", email = "mara-li@icloud.com" }
+    { name = "Mara-Li", email = "mara-li@outlook.fr" }
 ]
 license = "AGPL"
 readme = "README.md"
@@ -45,8 +45,10 @@ exclude = ["tests", "docs", "build", "dist", "venv", "venv3", "venv3.6", "venv3.
 inline-quotes = "double"
 
 [build-system]
-requires = ["uv"]
-build-backend = "uv.pyproject"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+[tool.hatch.build.targets.wheel]
+packages = ["mkdocs_embed_file_plugins"]
 
 [project.urls]
 homepage = "https://github.com/ObsidianPublisher/mkdocs-embed_file-plugin"
