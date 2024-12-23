@@ -1,6 +1,6 @@
 [project]
 name = "mkdocs-embed-file-plugin"
-version = "2.0.10"
+version = "2.0.11"
 description = "A plugin to quote file from docs"
 requires-python = ">=3.13"
 dependencies = [
@@ -64,3 +64,8 @@ dev = [
     "build>=0.6.0",
     "rich>=13.9.4",
 ]
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple/"
+publish-url = "https://upload.pypi.org/legacy/"
