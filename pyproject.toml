@@ -13,6 +13,7 @@ dependencies = [
     "mkdocs-callouts",
     "mkdocs-custom-tags-attributes",
     "pymdown-extensions",
+    "ruamel-yaml"
 ]
 authors = [
     { name = "Mara-Li", email = "mara-li@outlook.fr" }
@@ -36,8 +37,8 @@ classifiers = [
 ]
 
 [tool.ruff.lint]
-select = ["PTH", "ANN", "N", "Q", "PL", "E", "F", "I"]
-ignore = ["E501"]
+select = ["PTH", "N", "Q", "PL", "E", "F", "I"]
+ignore = ["E501", "ANN", "PLR"]
 exclude = ["tests", "docs", "build", "dist", "venv", "venv3", "venv3.6", "venv3.7", "venv3.8", "venv3.9", "venv3.10", "__pycache__"]
 
 [tool.ruff.lint.flake8-quotes]

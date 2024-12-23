@@ -1,7 +1,6 @@
 import re
 from bs4 import BeautifulSoup
 
-
 def strip_comments(markdown):
     file_content = markdown.split("\n")
     markdown = ""
@@ -21,7 +20,6 @@ def create_link(link):
         return link[:-1] + ".md"
     else:
         return link + ".md"
-
 
 def add_not_found_class(html):
     soup = BeautifulSoup(html, "html.parser")

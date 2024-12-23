@@ -1,16 +1,16 @@
 import codecs
-import os
+import logging
 import re
 from pathlib import Path
 from urllib.parse import unquote
+
 import frontmatter
 import markdown
 from bs4 import BeautifulSoup
+from custom_attributes.plugin import convert_text_attributes
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 from mkdocs_callouts.plugin import CalloutsPlugin
-from custom_attributes.plugin import convert_text_attributes
-import logging
 
 from mkdocs_embed_file_plugins.src.links_correction import (
     MULTIMEDIA_EXTENSIONS,
@@ -27,33 +27,52 @@ from mkdocs_embed_file_plugins.src.utils import (
     strip_comments,
 )
 
+DEFAULT_MARKDOWN_EXTENSIONS_CONFIG = {
+    "pymdownx.arithmatex": {"generic": True},
+    "pymdownx.highlight": {
+        "use_pygments": True,
+        "linenums": True,
+    },
+    "pymdownx.tasklist": {"custom_checkbox": True},
+}
+
 
 def cite(
-    md_link_path, link, soup, citation_part, config, callouts, custom_attr, msg
+    md_link_path,
+    link,
+    soup,
+    citation_part,
+    config,
+    callouts,
+    custom_attr,
+    msg,
+    md_config,
 ) -> BeautifulSoup:
     """Append the content of the founded file to the original file.
 
     Args:
-        md_link_path (str): Path of the file to be modified.
+        md_link_path (str|Path): Path of the file to be modified.
         link (str): Link to the file to be included.
         soup (BeautifulSoup): BeautifulSoup object of the file to be modified.
         citation_part (str): Part of the link to be included.
-        config (dict): Configuration of the plugin.
+        config (dict|MkdocsConfig): Configuration of the plugin.
         callouts (CalloutsPlugin): Callouts plugin.
         custom_attr (CustomAttributesPlugin): Custom attributes plugin.
         msg (str): Message to be displayed if the file is not found.
+        md_config (dict): Configuration of the markdown extensions.
     Returns: updated HTML
     """
+    log = logging.getLogger("mkdocs.plugins." + __name__)
     docs = config["docs_dir"]
     url = config["site_url"]
-
-    md_config = {
+    mdx_wikilink_plus = {
         "mdx_wikilink_plus": {
             "base_url": (docs, url, md_link_path),
             "build_url": mini_ez_links,
             "image_class": "wikilink",
-        }
+        },
     }
+    md_config.update(mdx_wikilink_plus)
     new_uri = str(md_link_path).replace(str(docs), str(url))
     new_uri = new_uri.replace("\\", "/")
     new_uri = new_uri.replace(".md", "/")
@@ -83,9 +102,13 @@ def cite(
         quote = strip_comments(quote)
         md_extensions = config["markdown_extensions"]
         md_extensions.append("mdx_wikilink_plus")
+        md_extensions = list(dict.fromkeys(md_extensions))
+        # remove arithmatex from the list of extensions
+
         html = markdown.markdown(
             quote, extensions=md_extensions, extension_configs=md_config
         )
+
         link_soup = BeautifulSoup(html, "html.parser")
         if link_soup:
             tooltip_template = (
@@ -101,8 +124,7 @@ def cite(
             soup = BeautifulSoup(new_soup, "html.parser")
             return soup
     else:
-        log = logging.getLogger("mkdocs.plugins." + __name__)
-        log.info(
+        log.warning(
             "[EMBED FILE PLUGIN] CITATION NOT FOUND : "
             + unquote(citation_part)
             + "for : "
@@ -141,9 +163,20 @@ class EmbedFile(BasePlugin):
         self.enabled = True
         self.total_time = 0
 
+    def create_config(self, config):
+        md_config = {}
+        mdx_config = config.get("mdx_configs")
+        if mdx_config:
+            for key, value in mdx_config.items():
+                md_config[key] = value
+        else:
+            md_config.update(DEFAULT_MARKDOWN_EXTENSIONS_CONFIG)
+        return md_config
+
     def on_post_page(self, output_content, page, config) -> str:
         soup = BeautifulSoup(output_content, "html.parser")
         docs = Path(config["docs_dir"])
+        md_config = self.create_config(config)
         md_link_path = ""
         callout = self.config["callouts"]
         language_message = self.config["language_message"]
@@ -162,32 +195,30 @@ class EmbedFile(BasePlugin):
                 elif link["src"][0] == ".":  # relative links
                     md_src = create_link(unquote(link["src"]))
                     md_link_path = Path(
-                        os.path.dirname(page.file.abs_src_path), md_src
+                        Path(page.file.abs_src_path).parent, md_src
                     ).resolve()
                     md_link_path = re.sub(r"[\/\\]?#(.*)$", "", str(md_link_path))
-                    if not os.path.isfile(md_link_path):
+                    if not Path(md_link_path).is_file():
                         md_link_path = search_file_in_documentation(
                             md_link_path, docs, docs
                         )
 
                 elif link["src"][0] == "/":
                     md_src_path = create_link(unquote(link["src"]))
-                    md_link_path = os.path.join(config["docs_dir"], md_src_path)
+                    md_link_path = Path(config["docs_dir"]) / md_src_path
                     md_link_path = Path(unquote(md_link_path)).resolve()
 
                 elif link["src"][0] != "#":
                     md_src_path = create_link(unquote(link["src"]))
-                    md_link_path = os.path.join(
-                        os.path.dirname(page.file.abs_src_path), md_src_path
-                    )
+                    md_link_path = Path(page.file.abs_src_path).parent / md_src_path
+
                     md_link_path = re.sub(r"/#(.*).md$", ".md", str(md_link_path))
                     md_link_path = Path(unquote(md_link_path)).resolve()
 
             else:
                 md_src_path = create_link(unquote(link["src"]))
-                md_link_path = os.path.join(
-                    os.path.dirname(page.file.abs_src_path), md_src_path
-                )
+                md_link_path = Path(page.file.abs_src_path).parent / md_src_path
+
                 md_link_path = Path(unquote(md_link_path)).resolve()
             if md_link_path == 0:
                 soup = tooltip_not_found(link, soup, language_message)
@@ -202,7 +233,7 @@ class EmbedFile(BasePlugin):
                 if citation_part:
                     md_link_path = Path(str(md_link_path))
 
-                    if os.path.isfile(md_link_path):
+                    if Path(md_link_path).is_file():
                         soup = cite(
                             md_link_path,
                             link,
@@ -212,6 +243,7 @@ class EmbedFile(BasePlugin):
                             callout,
                             self.config["custom-attributes"],
                             language_message,
+                            md_config,
                         )
                     else:
                         link_found = search_file_in_documentation(
@@ -227,5 +259,6 @@ class EmbedFile(BasePlugin):
                                 callout,
                                 self.config["custom-attributes"],
                                 language_message,
+                                md_config,
                             )
         return add_not_found_class(str(soup))
