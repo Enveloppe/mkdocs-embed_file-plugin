@@ -1,6 +1,46 @@
 # CHANGELOG
 
 
+## v2.1.0 (2024-12-24)
+
+### Chores
+
+- Update version
+  ([`bc8f27b`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/bc8f27b18a825646c69d940416e628a2e27a018d))
+
+### Continuous Integration
+
+- Adjust taskfile
+  ([`17096c3`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/17096c3d01e00a2876a3aa473312b266ba33bf9d))
+
+### Refactoring
+
+- Class used in "not found tooltip" change to "ezlinks_not_found" to be more accurate with
+  `mkdocs-obsidian-links`
+  ([`b5d5755`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/b5d57552b893ac44f5e8183c9657eea47d67d318))
+
+
+## v2.0.12 (2024-12-23)
+
+### Chores
+
+- Update uvlock
+  ([`4685f61`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/4685f611cc06ea72e5cfb875fbebb992b224793b))
+
+- Update version
+  ([`e9b3f79`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/e9b3f79ac9a562ee5eeb4a09c94eb018464882a4))
+
+### Continuous Integration
+
+- Update config & update version
+  ([`efb4fa6`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/efb4fa6e1f2a2745d985fe6522aee4247481121b))
+
+### Refactoring
+
+- Adjust the default example of CSS
+  ([`ea7f1cb`](https://github.com/Enveloppe/mkdocs-embed_file-plugin/commit/ea7f1cb79a641b474624aafc15a977d40ba9997d))
+
+
 ## v2.0.11 (2024-12-23)
 
 ### Bug Fixes
