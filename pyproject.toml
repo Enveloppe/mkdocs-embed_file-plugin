@@ -1,6 +1,6 @@
 [project]
 name = "mkdocs-embed-file-plugin"
-version = "2.1.2"
+version = "2.1.3"
 description = "A plugin to quote file from docs"
 requires-python = ">=3.13"
 dependencies = [
