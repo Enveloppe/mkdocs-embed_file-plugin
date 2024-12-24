@@ -142,7 +142,7 @@ def cite(
 def tooltip_not_found(link, soup, msg) -> BeautifulSoup:
     tooltip_template = (
         "<div class='citation'> <a class='link_citation'><i class='fas fa-link'></i> </a>"
-        + f'<p style="text-align: center; display: block"><i class="not_found" src={link["src"]}>'
+        + f'<p style="text-align: center; display: block"><i class="ezlinks_not_found" src={link["src"]}>'
         + str(link["alt"])
         + f"</i> {msg}</p>"
         + "</div>"
