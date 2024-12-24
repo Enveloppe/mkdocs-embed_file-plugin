@@ -10,23 +10,11 @@ tasks:
     cmds:
       - task: release
 
-  clean:
-    desc: "Clean up old build files"
-    cmds:
-      - echo "Cleaning build directories..."
-      - uv run python clean.py
-
   version:
     desc: "Run semantic-release to determine and bump the version"
     cmds:
       - echo "Running semantic-release to bump the version..."
       - uv run semantic-release -c semantic_release.toml version
-
-  build:
-    desc: "Build the Python package"
-    cmds:
-      - echo "Building the package..."
-      - uv build
 
   publish:
     desc: "Publish the package to PyPI"
@@ -34,18 +22,8 @@ tasks:
       - echo "Publishing {{.package_name}} to PyPI..."
       - uv run semantic-release -c semantic_release.toml publish
 
-  watch:
-    desc: "Start the Watchdog with custom paths"
-    vars:
-      package_path: "mkdocs-obsidian-wikilinks"
-      mkdocs_path: "../mara-li"
-    cmds:
-      - echo "Starting Watchdog for {{.package_path}} with MkDocs at {{.mkdocs_path}}..."
-      - uv run python watch.py {{.package_path}} {{.mkdocs_path}}
-
   release:
     desc: "Perform a full release: version bump, build, and publish"
     cmds:
-      - task: clean
       - task: version
       - task: publish
