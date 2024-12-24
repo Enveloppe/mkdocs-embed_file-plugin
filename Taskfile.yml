@@ -14,12 +14,13 @@ tasks:
     desc: "Run semantic-release to determine and bump the version"
     cmds:
       - echo "Running semantic-release to bump the version..."
-      - uv run semantic-release -c semantic_release.toml version
+      - uv run semantic-release -c semantic_release.toml version {{.CLI_ARGS}}
 
   publish:
     desc: "Publish the package to PyPI"
     cmds:
       - echo "Publishing {{.package_name}} to PyPI..."
+      - uv publish 
       - uv run semantic-release -c semantic_release.toml publish
 
   release:
