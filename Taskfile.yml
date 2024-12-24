@@ -3,6 +3,7 @@ version: "3"
 vars:
   package_name: "mkdocs-embed-file-plugin"
   pyproject_dir: "{{.Taskfile.Dir}}"
+  root: "../.."
 
 tasks:
   default:
@@ -20,8 +21,8 @@ tasks:
     desc: "Publish the package to PyPI"
     cmds:
       - echo "Publishing {{.package_name}} to PyPI..."
-      - uv publish 
-      - uv run semantic-release -c semantic_release.toml publish
+      - uv publish --directory {{.root}}
+      - uv run semantic-release -c semantic_release.toml publish {{.CLI_ARGS}}
 
   release:
     desc: "Perform a full release: version bump, build, and publish"
